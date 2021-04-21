@@ -1,31 +1,37 @@
-name: Herring Cove
-author: Herring Cove
-baseurl: 
-description: theme for jekyll
-github: http://www.github.com/dezcao
-twitter: http://www.twitter.com/
-facebook: http://www.facebook.com
-linkedin: http://www.linkedin.com
+title: minima-reboot
+author: dezcao
 email: dezcao@gmail.com
-location: 42°2'16"N   70°12'47"W
-disqus: diqus-username
+description: >
+  This is a demo page for minima-reboot, a bootstrap-based rewrite of Jekyll's
+  default minima theme. It is simple, lightweight, and responsive.
+  You can use it with your GitHub Pages site by adding the line
+  "theme: aterenin/minima-reboot" to _config.yml.
 
-##Make sure to edit the above fields, especially for disqus.
+plugins:
+  - jekyll-seo-tag
+  - jekyll-paginate
+  - jekyll-feed
+  - jekyll-redirect-from
 
+minima_reboot:
+  date_format: "%b %-d, %Y"
+  date_format_short: "%b %-d"
 
-highlighter: pygments
-markdown: redcarpet
-redcarpet:
-  extensions: ["tables"]
+header_pages:
+- about.md
+- posts.md
+- github.md
 
-defaults:
-  - scope:
-      path: ""
-      type: "pages"
-    values:
-      layout: "default"
-  - scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: "post"
+footer_icons:
+- username: dezcao
+  url: "https://dezcao.github.io/"
+  icon: icon-github.svg
+
+paginate: 5
+
+markdown: kramdown
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - minima-reboot.gemspec

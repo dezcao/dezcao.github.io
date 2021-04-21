@@ -1,11 +1,24 @@
-<meta charset="utf-8">
-<title>{{ page.title }}</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="{{ site.description }}">
-<link href="{{ site.baseurl }}/css/bootstrap.min.css" rel="stylesheet">
-<link href="{{ site.baseurl }}/css/hc.css" rel="stylesheet">
-<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif] d-->
+<header id="nav-header" class="border-dark border-left-0 border-right-0">
+  <div id="nav-container" class="container position-relative d-flex justify-content-between align-items-center">
+    {% assign default_paths = site.pages | map: "path" %}
+    {% assign page_paths = site.header_pages | default: default_paths %}
+    <a class="h4 m-0 text-dark" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+
+    {% if page_paths %}
+      <nav id="nav-menu-container" class="text-right navbar-light">
+        <input type="checkbox" id="nav-trigger" class="d-none"/>
+        <label for="nav-trigger" aria-label="button" class="m-2 d-inline-block d-md-none navbar-toggler-icon">
+        </label>
+
+        <div id="nav-menu" class="d-none d-md-block">
+          {% for path in page_paths %}
+            {% assign my_page = site.pages | where: "path", path | first %}
+            {% if my_page.title %}
+              <a class="text-dark ml-3 ml-md-0 p-2 d-block d-md-inline-block" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </nav>
+    {% endif %}
+  </div>
+</header>
