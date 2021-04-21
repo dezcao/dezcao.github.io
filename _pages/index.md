@@ -2,7 +2,7 @@
 layout: defaults/page
 permalink: index.html
 narrow: true
-title: Welcome to Jeffrey Blog
+title: Jeffrey
 ---
 
 ## What is it?

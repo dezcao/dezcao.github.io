@@ -8,7 +8,7 @@ excerpt_separator: <!--more-->
 
 # Config for your profile.
 title:            Jeffrey            # Site title
-name:             Hwang Jae Pil            # Your name
+name:             Jeffrey            # Your name
 avatar:           /theme/img/avatar.png   # Path to an avatar image
 
 # The theme uses the baseurl throughout, which is useful for running the entire
