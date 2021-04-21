@@ -45,30 +45,30 @@ defaults:
     scope:
       path: ""
     values:
-      show_profile: false
+      show_profile: true
   -
     scope:
       path: "_posts"
     values:
-      show_profile: false
+      show_profile: true
       layout: defaults/post
   -
     scope:
       path: "_portfolio"
     values:
-      show_profile: false
+      show_profile: true
       layout: defaults/portfolio
   -
     scope:
       path: "_projects"
     values:
-      show_profile: false
+      show_profile: true
       layout: defaults/project
   -
     scope:
       path: "list"
     values:
-      show_profile: false
+      show_profile: true
       layout: defaults/list
 
 
