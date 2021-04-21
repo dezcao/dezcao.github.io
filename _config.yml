@@ -7,9 +7,9 @@ highlighter:      rouge
 excerpt_separator: <!--more-->
 
 # Config for your profile.
-title:            Friday Theme            # Site title
-name:             Friday Theme            # Your name
-avatar:           /theme/img/avatar.jpg   # Path to an avatar image
+title:            Jeffrey            # Site title
+name:             Hwang Jae Pil            # Your name
+avatar:           /theme/img/avatar.png   # Path to an avatar image
 
 # The theme uses the baseurl throughout, which is useful for running the entire
 # site under a subdir, like for this GitHub Pages deployment as a project site.
@@ -17,23 +17,12 @@ baseurl: ""
 url: "htts://dezcao.github.io"
 
 # Add a directory to hold misc pages, just to keep the root directory clean.
-include: ["_pages", "_portfolio"]
+include: ["_pages"]
 
 # Wire in the SASS files in the theme directory.
 sass:
   sass_dir: theme/_sass
   style: compressed
-
-# Turn the projects into a collection.
-collections:
-  projects:
-    output: true
-    title: Projects
-    permalink: /:collection/:name.html
-  portfolio:
-    output: true
-    title: portfolio
-    permalink: /:collection/:name.html
 
 defaults:
 # Turn the profile sidebar on for all pages by default, except for the
@@ -54,21 +43,7 @@ defaults:
       layout: defaults/post
   -
     scope:
-      path: "_portfolio"
-    values:
-      show_profile: true
-      layout: defaults/portfolio
-  -
-    scope:
-      path: "_projects"
-    values:
-      show_profile: true
-      layout: defaults/project
-  -
-    scope:
       path: "list"
     values:
       show_profile: true
       layout: defaults/list
-
-
