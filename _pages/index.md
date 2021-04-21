@@ -5,14 +5,14 @@ narrow: true
 title: Jeffrey
 ---
 
-## What is it?
+## Greeting
 
 {% include components/intro.md %}
 
 hello blog
 
-## How to use it
-Hello world
+## Contact
+dezcao@gmail.com
 
 <hr />
 
