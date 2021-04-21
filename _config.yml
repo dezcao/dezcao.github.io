@@ -24,16 +24,6 @@ sass:
   sass_dir: theme/_sass
   style: compressed
 
-collections:
-  projects:
-    output: true
-    title: Projects
-    permalink: /:collection/:name.html
-  portfolio:
-    output: true
-    title: portfolio
-    permalink: /:collection/:name.html
-
 defaults:
 # Turn the profile sidebar on for all pages by default, except for the
 # collections, where it is off and replaced by useful things on the sidebar.
@@ -49,24 +39,11 @@ defaults:
     scope:
       path: "_posts"
     values:
-      show_profile: false
+      show_profile: true
       layout: defaults/post
-  -
-    scope:
-      path: "_portfolio"
-    values:
-      show_profile: false
-      layout: defaults/portfolio
-  -
-    scope:
-      path: "_projects"
-    values:
-      show_profile: false
-      layout: defaults/project
   -
     scope:
       path: "list"
     values:
-      show_profile: false
+      show_profile: true
       layout: defaults/list
-
