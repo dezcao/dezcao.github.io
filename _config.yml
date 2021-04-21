@@ -2,7 +2,8 @@ title: Jeffrey Blog
 author: Jeffrey
 email: dezcao@gmail.com
 description: >
-  Since. 2021.04.21 with Jekyll theme : https://aterenin.github.io/minima-reboot/
+  Since. 2021.04.21 
+  with Jekyll theme : https://aterenin.github.io/minima-reboot/
 plugins:
   - jekyll-seo-tag
   - jekyll-paginate
