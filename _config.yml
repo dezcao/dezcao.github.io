@@ -1,46 +1,37 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-
 # Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
-title: Jeffrey
-description: > # this means to ignore newlines until "baseurl:"
-  Material theme based on <a href="http://materializecss.com">Materialize.css</a> for jekyll sites
-baseurl: ""
-url: "https://dezcao.github.io"
-permalink: /:year/:month/:day/:title
-repository: ShawnTeoh/matjek
-paginate: 5
+title: Antonio Trento, theme Jeky New Age, the start Bootstrap themplate build for jekyll
+email:
+description: A jekyll template for landing pages, portfolio and blogging
 
-# MatJek specific configurations
-github_profile: "https://github.com/dezcao"
-user: "Jeffrey"
-user_email: "dezcao@gmail.com"
-contact_url: "https://goo.gl/tVljbV"
-# google_tracking_id: "UA-96359860-1"
-# google_site_verification: "UA-96359860-1"
-disqus_shortname: "Jeffrey"
+baseurl: "" # the subpath of your site, e.g. /blog/ (If you use organization leave empty)
+url: "https://dezcao.github.io" # the base hostname & protocol for your site
+
+#Google Ad Words Data from scripts code (using Google responsive options) and ad client
+data-ad-slot: 
+data-ad-client: 
+google_ad_client: 
+
+google_analytics: 
+addthis_id: 
+disqus_account: 
+
+# Social networks usernames (many more available: flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.) see all icon at fontawesome.io
+social:
+  # - title: twitter
+  #   url: https://twitter.com/lantoniotrento
+  # - title: facebook
+  #   url: https://facebook.com/lantoniotrento
+  # - title: google-plus
+  #   url: https://plus.google.com/+AntoniotrentoIt
+  #- title: github
+  #  url: http://github.com/jekyll
 
 # Build settings
 markdown: kramdown
-gems:
-  - jekyll-feed
-  - jekyll-paginate
-  - jekyll-seo-tag
-  - jekyll-sitemap
-exclude:
-  - Gemfile
-  - Gemfile.lock
-sass:
-  style: compressed
-future: true
+highlighter: rouge
+permalink: pretty
+paginate: 5
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+
+gems: [jekyll-paginate, jekyll-feed]
+# Build settings
