@@ -31,6 +31,23 @@ sudo systemctl daemon-reload
 젠킨스는 자바가 필요하다.  
 자바가 안깔려 있다면 자바도 깔아야 하고, 패스를 설정해야 한다.  
 그래서 도커로 하면 편한데... 위 명령어를 보니 openjdk 자바를 같이 깔도록 하고 있다. 땡큐 하구먼.
+```
+java -version
+javac -version
+```
+확인해보니 잘 설치 되었다.
+참고로, java가 어디있는지 찾고싶으면 whereis 명령어를 써본다.
+```
+whereis java
+whereis javac
+```
+자바와 자바컴파일러(javac)은 /usr/bin에 들어있는걸 알 수 있다.  
+이어서 echo $PATH로 환경변수를 출력해 볼 수 있다. 또한, 파이프(|)로 결과물을 다음 명령으로 넘겨주고,  
+grep으로 문자열을 찾아본다.
+```
+echo $PATH | grep /usr/bin
+```
+잘 들어있다.
 
 ### Port 변경하기
 ```
