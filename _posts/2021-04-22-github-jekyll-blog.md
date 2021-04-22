@@ -7,6 +7,10 @@ tags:
   - gem install
 ---
 
+깃허브 기반의 블로그를 만들어 본다.
+
+<!--more-->
+
 [이 블로그 생성에 성공하게 해준 블로거님 글 보러가기](https://zoomkoding.github.io/gitblog/2019/08/15/git-blog-1.html)
 
 ### github repository 생성
