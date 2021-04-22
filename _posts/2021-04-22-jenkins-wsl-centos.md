@@ -14,9 +14,10 @@ CentOS에 젠킨스를 설치하고 깃헙에 소스가 갱신되면 자동 반�
 AWS에서 우분투 위에 도커를 설치하고, 도커로 젠킨스를 설치하면 쉽고 제거도 깔끔해서 좋았다.  
 하지만, WSL에 리눅스로 CentOS를 설치했는데 도커가 제대로 실행되지 않았다.  
 WSL에서 돌려서 그런건지 CentOS 문제인지 모르겠지만 젠킨스를 그냥 설치하기로 했다.  
-변한건 없는지 사이트를 확인하자. [Jenkins 공홈의 CentOS install 파트](https://www.jenkins.io/doc/book/installing/linux/#red-hat-centos)
 
 ### Jenkins download and install
+설치와 관련하여 변한건 없는지 사이트를 확인하자.  
+[Jenkins 공홈의 CentOS install 파트](https://www.jenkins.io/doc/book/installing/linux/#red-hat-centos)
 ```
 sudo wget -O /etc/yum.repos.d/jenkins.repo \
     https://pkg.jenkins.io/redhat-stable/jenkins.repo
@@ -28,20 +29,20 @@ sudo systemctl daemon-reload
 
 ### Java Path
 젠킨스는 자바가 필요하다.  
-자바가 안깔려 있다면 자바도 깔아야 하고, 패스를 설정 한다.  
-그래서 도커로 하면 편한데... 위 명령어를 보니 openjdk 자바를 같이 깔게끔 하고 있다. 땡큐 하구먼.
+자바가 안깔려 있다면 자바도 깔아야 하고, 패스를 설정해야 한다.  
+그래서 도커로 하면 편한데... 위 명령어를 보니 openjdk 자바를 같이 깔도록 하고 있다. 땡큐 하구먼.
 
-### port 변경하기
+### Port 변경하기
 ```
 # jenkins config 열기
-sudo vim /etc/sysconfig/jenkins
+sudo vi /etc/sysconfig/jenkins
 ```
 왜 바꿀까?  
-많은 어플들이 자동으로 서버를 올릴때 8080을 많이 물고 올라간다.  
-양보하는 모양이다. 젠킨스는 관용적으로 9090을 많이 쓴단다.
+많은 어플들이 자동으로 제너레이트 되면, 서버를 올릴때 8080을 많이 물고 올라간다. (Node, Vue 등)  
+그래서 양보하는 모양이다. 젠킨스는 관용적으로 9090을 많이 쓴단다.  
 JENKINS_PORT="9090"
 
-### start, status Jenkins
+### Start, Status Jenkins 명령어
 ```
 sudo systemctl start jenkins
 sudo systemctl status jenkins
@@ -51,10 +52,18 @@ sudo systemctl status jenkins
 ```
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
-브라우저에서 젠킨스 페이지(http://${ip}:9090) 로딩 이후, 설치하라는거 쭉쭉 진행하고 계정생성까지 해서 젠킨스에 로그인 해준다.  
-AWS 같은 클라우드에서 사용한다면 젠킨스 페이지를 접근 하기위한 포트를 열어주는걸 잊지 말자.
+브라우저에서 젠킨스 페이지(http://${ip}:9090) 로딩 이후, 초기 비번을 물어본다.  
+이후 기본 설치하라는거 쭉쭉 진행하고, 사용할 계정생성까지 해서 젠킨스 관리페이지로 로그인 해준다.  
+AWS 같은 클라우드에서 사용한다면 젠킨스 페이지를 접근 하기위한 포트를 열어주는걸 잊지 말자.  
 
-### github 연동하기
+### 왜 /var 그러니까 /var/lib에 있는걸까
+[출처: 참고한 블로그](https://jadehan.tistory.com/11)  
+리눅스에서 /var 폴더는, 가변데이터 파일들, 시스템 로그, 스풀링 파일 들이 저장된다. 메일 서버로 운영될 경우 메일이 여기 저장된다.  
+젠장, 스풀링은 뭐지? 스풀링은 나중에 처리하거나 인쇄하기 위해 데이터를 저장하는 시스템 기능이란다.[출처](https://www.ibm.com/docs/ko/i/7.3?topic=queues-spooled-files)  
+요약하면, /var/lib - 가변 상태 정보 데이터가 위치한다.  
+/var 디렉토리는 /usr 디렉토리가 read-only로 마운트하도록 하는데, 시스템을 운영(설치나 유지가 아닌)하는 동안 /usr 디렉토리에 작성된 모든 것들이 /var에 있어야한다.
+
+### Github 연동
 젠킨스가 관리할 수 있게 프로젝트 생성하기,  
 젠킨스가 깃과 소통하기 위한 라이러리 추가 설치하기,  
 깃허브와 ssh 통신을 위한 키 등록하기 (private repository인 경우 해야만 연동됨.)  
