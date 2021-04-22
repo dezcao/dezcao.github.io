@@ -9,8 +9,6 @@ title: Jeffrey
 
 {% include components/intro.md %}
 
-hello blog
-
 ## Contact
 dezcao@gmail.com
 
