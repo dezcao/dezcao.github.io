@@ -11,28 +11,48 @@ CentOS에 젠킨스를 설치하고 깃헙에 소스가 갱신되면 자동 반�
 
 <!--more-->
 
-우분투 위에 도커를 설치하고, 도커로 젠킨스를 설치하면 쉽고 제거도 깔끔해서 좋았다.  
-하지만, WSL을 통해 리눅스를 설치할때, 우분투 대신 CentOS를 설치했는데 도커가 제대로 실행되지 않았다.  
-WSL위에서 돌려서 그런건지 CentOS가 문제인지 모르겠지만 도커를 포기하고 젠킨스를 그냥 설치하기로 했다.  
-[도움 받은 블로그](https://goddaehee.tistory.com/82)
+AWS에서 우분투 위에 도커를 설치하고, 도커로 젠킨스를 설치하면 쉽고 제거도 깔끔해서 좋았다.  
+하지만, WSL에 리눅스로 CentOS를 설치했는데 도커가 제대로 실행되지 않았다.  
+WSL에서 돌려서 그런건지 CentOS 문제인지 모르겠지만 젠킨스를 그냥 설치하기로 했다.  
+변한건 없는지 사이트를 확인하자. [Jenkins 공홈의 CentOS install 파트](https://www.jenkins.io/doc/book/installing/linux/#red-hat-centos)
 
 ### Jenkins download and install
 ```
-# wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
-# rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
-# yum install jenkins
+sudo wget -O /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+sudo yum upgrade
+sudo yum install jenkins java-1.8.0-openjdk-devel
+sudo systemctl daemon-reload
 ```
 
 ### Java Path
 젠킨스는 자바가 필요하다.  
 자바가 안깔려 있다면 자바도 깔아야 하고, 패스를 설정 한다.  
-그래서 도커로 하면 편한데...
+그래서 도커로 하면 편한데... 위 명령어를 보니 openjdk 자바를 같이 깔게끔 하고 있다. 땡큐 하구먼.
+
+### port 변경하기
+```
+# jenkins config 열기
+sudo vim /etc/sysconfig/jenkins
+```
+왜 바꿀까?  
+많은 어플들이 자동으로 서버를 올릴때 8080을 많이 물고 올라간다.  
+양보하는 모양이다. 젠킨스는 관용적으로 9090을 많이 쓴단다.
+JENKINS_PORT="9090"
+
+### start, status Jenkins
+```
+sudo systemctl start jenkins
+sudo systemctl status jenkins
+```
 
 ### 초기 비밀번호는 어디 있나
 ```
-/var/lib/jenkins/secrets/initialAdminPassword
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
-최초 젠킨스 페이지 로딩 이후, 설치하라는거 쭉쭉 진행하고 계정생성까지 해서 젠킨스에 로그인 해준다.
+브라우저에서 젠킨스 페이지(http://${ip}:9090) 로딩 이후, 설치하라는거 쭉쭉 진행하고 계정생성까지 해서 젠킨스에 로그인 해준다.  
+AWS 같은 클라우드에서 사용한다면 젠킨스 페이지를 접근 하기위한 포트를 열어주는걸 잊지 말자.
 
 ### github 연동하기
 젠킨스가 관리할 수 있게 프로젝트 생성하기,  
@@ -52,7 +72,7 @@ vi /etc/rc.local
 
 명령어를 추가한다.
 ```
-service jenkins start
+sudo systemctl start jenkins
 ```
 
 만약 해당 파일이 없으면, 만들고, 실행 권한을 준다.
@@ -86,7 +106,7 @@ umask의 값은 Shell에 의존적이여서 각 Shell에 따라 0022(sh), 022(ks
 파일을 만들어, 만든 파일의 내용을 쉘 스크립트 작성 문법에 맞게 채운다.
 ```
 #!/bin/bash
-service jenkins start
+sudo systemctl start jenkins
 exit 0
 ```
 
