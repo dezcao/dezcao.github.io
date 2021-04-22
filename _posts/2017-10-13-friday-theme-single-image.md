@@ -1,6 +1,5 @@
 ---
 title:  How to use Single Images
-url: 2020-03-02-friday-theme-carousel
 tags:
   - Friday Theme
   - HTML
