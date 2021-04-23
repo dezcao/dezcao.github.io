@@ -73,9 +73,12 @@ sudo systemctl status jenkins
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
 브라우저에서 젠킨스 페이지(http://${ip}:9090) 로딩 이후, 초기 비번을 물어본다.  
-이후 기본 설치하라는거 쭉쭉 진행하고, 사용할 계정생성까지 해서 젠킨스 관리페이지로 로그인 해준다.  
-AWS 같은 클라우드에서 사용한다면 젠킨스 페이지를 접근 하기위한 포트를 열어주는걸 잊지 말자.  
 <img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/unlock.PNG"/>
+이후 install suggested plugins 설치를 쭉쭉 진행한다.  
+<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/install_suggested.PNG"/>
+사용할 계정생성까지 해서 젠킨스 관리페이지로 로그인 해준다.  
+<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/create_admin.PNG"/>
+AWS 같은 클라우드에서 사용한다면 젠킨스 페이지를 접근 하기위한 포트를 열어주는걸 잊지 말자.  
 
 ### 왜 /var 그러니까 /var/lib에 있는걸까
 [출처: 참고한 블로그](https://jadehan.tistory.com/11)  
