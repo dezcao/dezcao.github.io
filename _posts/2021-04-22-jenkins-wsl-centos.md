@@ -16,7 +16,7 @@ AWS에서 우분투 위에 도커를 설치하고, 도커로 젠킨스를 설치
 WSL에서 돌려서 그런건지 CentOS 문제인지 모르겠지만 젠킨스를 그냥 설치하기로 했다.  
 
 ### Jenkins download and install
-설치와 관련하여 변한건 없는지 사이트를 확인하자.  
+명령어를 복사하기 전에 설치와 관련하여 변한건 없는지 사이트를 확인하자.  
 [Jenkins 공홈의 CentOS install 파트](https://www.jenkins.io/doc/book/installing/linux/#red-hat-centos)
 ```
 sudo wget -O /etc/yum.repos.d/jenkins.repo \
@@ -27,30 +27,29 @@ sudo yum install jenkins java-1.8.0-openjdk-devel
 sudo systemctl daemon-reload
 ```
 
+
 ### Java Path
 젠킨스는 자바가 필요하다.  
 자바가 안깔려 있다면 자바도 깔아야 하고, 패스를 설정해야 한다.  
-그래서 도커로 하면 편한데... 위 명령어를 보니 openjdk 자바를 같이 깔도록 하고 있다. 땡큐 하구먼.
+그래서 도커로 하면 편한데... 위 명령어는 이미 openjdk 자바를 같이 깔도록 하고 있다. 땡큐 하구먼.
 ```
 java -version
 javac -version
 ```
-확인해보니 잘 설치 되었다.
-참고로, java가 어디있는지 찾고싶으면 whereis 명령어를 써본다.
+확인해보니 잘 설치 되었다. 참고로, java가 어디있는지 찾고싶으면 whereis 명령어를 써본다.
 ```
 whereis java
 whereis javac
 ```
-자바와 자바컴파일러(javac)은 /usr/bin에 들어있는걸 알 수 있다.  
-이어서 echo $PATH로 환경변수를 출력해 볼 수 있다. 또한, 파이프(|)로 결과물을 다음 명령으로 넘겨주고,  
-grep으로 문자열을 찾아본다.
+/usr/bin에 들어있는걸 알 수 있다.  
+echo $PATH로 환경변수를 출력해 볼 수 있고, 파이프(|)로 결과물을 넘겨, grep으로 문자열을 찾아봤다.
 ```
 echo $PATH | grep /usr/bin
 ```
 잘 들어있다.
 
-### Po
-rt 변경하기
+
+### Port 변경하기
 ```
 dezcao 
 / 1111
@@ -62,35 +61,73 @@ sudo vi /etc/sysconfig/jenkins
 그래서 양보하는 모양이다. 젠킨스는 관용적으로 9090을 많이 쓴단다.  
 JENKINS_PORT="9090"
 
+
 ### Start, Status Jenkins 명령어
 ```
 sudo systemctl start jenkins
 sudo systemctl status jenkins
 ```
 
-### 초기 비밀번호는 어디 있나
+
+### 접속하기
+브라우저에서 젠킨스 페이지(http://${ip}:9090) 로딩 이후, 초기 비번을 물어본다.  
+#### 초기 비밀번호 복사해오기
 ```
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
-브라우저에서 젠킨스 페이지(http://${ip}:9090) 로딩 이후, 초기 비번을 물어본다.  
 <img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/unlock.PNG"/>
+
 이후 install suggested plugins 설치를 쭉쭉 진행한다.  
 <img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/install_suggested.PNG"/>
+
 사용할 계정생성까지 해서 젠킨스 관리페이지로 로그인 해준다.  
 <img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/create_admin.PNG"/>
+
 AWS 같은 클라우드에서 사용한다면 젠킨스 페이지를 접근 하기위한 포트를 열어주는걸 잊지 말자.  
 
-### 왜 /var 그러니까 /var/lib에 있는걸까
-[출처: 참고한 블로그](https://jadehan.tistory.com/11)  
-리눅스에서 /var 폴더는, 가변데이터 파일들, 시스템 로그, 스풀링 파일 들이 저장된다. 메일 서버로 운영될 경우 메일이 여기 저장된다.  
-젠장, 스풀링은 뭐지? 스풀링은 나중에 처리하거나 인쇄하기 위해 데이터를 저장하는 시스템 기능이란다.[출처](https://www.ibm.com/docs/ko/i/7.3?topic=queues-spooled-files)  
+
+#### 비밀번호는 왜 /var 그러니까 /var/lib에 있는걸까
+[출처: https://jadehan.tistory.com/11](https://jadehan.tistory.com/11)  
+리눅스에서 /var 폴더는, 가변데이터 파일, 시스템 로그, 스풀링 파일, 메일 서버로 운영될 경우 메일 저장된다.  
+젠장, 스풀링은 뭐지? 나중에 처리하거나 인쇄하기 위해 데이터를 저장하는 시스템 기능이란다.[출처](https://www.ibm.com/docs/ko/i/7.3?topic=queues-spooled-files)  
 요약하면, /var/lib - 가변 상태 정보 데이터가 위치한다.  
-/var 디렉토리는 /usr 디렉토리가 read-only로 마운트하도록 하는데, 시스템을 운영(설치나 유지가 아닌)하는 동안 /usr 디렉토리에 작성된 모든 것들이 /var에 있어야한다.
+/var 디렉토리는 /usr 디렉토리가 read-only로 마운트하도록 하는데, 시스템을 운영(설치나 유지가 아닌)하는 동안 /usr 디렉토리에 작성된 모든 것들이 /var에 있어야 한다.
+
 
 ### Github 연동
-젠킨스가 관리할 수 있게 프로젝트 생성하기,  
-젠킨스가 깃과 소통하기 위한 라이러리 추가 설치하기,  
+젠킨스가 깃과 소통하기 위한 라이러리 추가 설치한다.
+
+<b>Jenkins 관리 < 플러그인 관리 < 설치 가능 탭<b>
+
+github integration을 설치한다.
+publish over ssh를 설치한다.
+<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/github_integration.PNG"/>
+
+
 깃허브와 ssh 통신을 위한 키 등록하기 (private repository인 경우 해야만 연동됨.)  
+
+배포될 서버에 SSH 공개키 등록
+: 젠킨스와 배포서버의 위치가 다르다면, 젠킨스가 속한 서버의 ssh 공개키 id_rsa.pub 를
+배포될 서버의 authorized_keys 파일 내용으로 추가해준다.
+나는, 젠킨스와 배포서버가 같은곳에 있기 때문에, 그냥 공개키 바로 등록했다.
+경로 : ~/.ssh/authorized_keys
+
+$ cat id_rsa.pub >> ~/.ssh/authorized_keys
+ls -l .ssh/authorized_keys를 보면 권한 보인다.
+$ chmod 700 ~/.ssh/authorized_keys
+<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/authorized_keys.PNG"/>
+
+
+Jenkins 관리 > 시스템 설정 > Publish Over SSH
+SSH Servers에 서버 정보 추가
+<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/ssh_servers.PNG"/>
+Name - test-server
+Hostname - 192.168.0.22
+Username - root
+고급 > User password authentication, or use a different key 체크
+Key - SSH 키 설정 과정에서 생성한 id_rsa(비공개키-젠킨스가 설치된 서버의 비공개키) 파일 내용 추가
+저장
+
 
 타겟 브랜치(master 따위)가 변경되면 서버에 배포가 일어나는지 확인해보자.
 

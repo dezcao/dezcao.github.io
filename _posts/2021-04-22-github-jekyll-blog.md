@@ -71,33 +71,18 @@ Jekyll에는 환상적인 테마들도 있지만, 구조가 약간 복잡할 것
 제작자마다 구조가 약간씩 상이하지만, 대부부분 비슷한 룰을 따를것이다.  
 나의 경우 목록이 없는 한장짜리 페이지인 경우, _pages 아래에 해당 파일이 있었다.  
 목록형인 post는, _posts 폴더 아래에 마크다운 문법으로 "연도-월-일-글타래제목" 으로 생성된 파일을 만들면 새로운 post가 된다.  
-기본은 마크다운 이지만, html 태그가 입력된다. 해당 파일을 그냥 html 확장자를 사용해서 생성해도 가능한걸로 보인다.  
-대신 문서 파싱되는데 필요한 규칙에는 맞게 써줘야 한다.  
-이를테면 상단에 이런 구문은 똑같이 입력해준다.
-
-{% highlight markdown %}
-
----
-title: Github + Jekyll theme 블로그 만들기
-tags:
-  - github
-  - jekyll
-  - ruby
-  - gem install
----
-
-{% endhighlight %}
+jekyll에서는 마크다운의 한 종류인 kramdown을 쓴다. html 요소를 사용할 수 있는것 같다.  
+[포스팅에 이미지 추가하기](https://blog.jaeyoon.io/2017/12/jekyll-image.html)
 
 ### 여담
 부트스트랩의 cdn을 넣으면 디자인이 깨지는 경우가 있는데, 지금 이 테마는 구버전 이긴 하지만 bootstrap 관련 .js가 이미 있고  
 css도 자체적으로 커스텀한게 들어있어서 cdn을 넣지 않은채 그냥 컴포넌트만 긁어다 붙이는데 잘된다.  
 <br>
-나는 엄청난 사이트를 구축하려는게 아니기 때문에 비교적 테마의 구조는 단순하면서,  
+나는 엄청난 사이트를 구축하려는게 아니기 때문에 비교적 테마의 구조는 단순하고,  
 동적인 페이지를 만드는데 비빌 언덕이 되어줄 부트스트랩이 적용된 테마로 골랐다.  
 <br>
-nav.yml의 프로필 경로를 보고 이미지를 교체했는데, 로딩이 느려서 용량을 줄였다. [https://www.iloveimg.com/](https://www.iloveimg.com/)  
-기본 테마안에 파비콘이 없어서 만들었다. [favicon.ico 생성하기](https://favicon.io/)  
-css, js 따위는 head.html 파일에 들어있어서, 추가했다.
+프로필 이미지 로딩이 느려서 용량을 줄였다. [https://www.iloveimg.com/](https://www.iloveimg.com/)  
+또한 favicon이 없어서 만들었다. [favicon.ico 생성하기](https://favicon.io/)  
 
 {% highlight html %}
 
