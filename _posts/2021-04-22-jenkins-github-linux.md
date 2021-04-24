@@ -1,5 +1,5 @@
 ---
-title: 젠킨스 + 깃헙 소스 자동배포
+title: Jenkins + Github 소스 자동배포
 tags:
   - Jenkins
   - CentOS
