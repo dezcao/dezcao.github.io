@@ -90,11 +90,16 @@ sudo docker run -d --name my-jenkins -p 9090:9090 -p 50000:50000 -v jenkins_home
 sudo cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
 ```
 <div class="alert alert-info">
-    A simple info alert!
+  <h3>Java Path</h3>
+  <p>젠킨스 구동은 자바가 필요하다.(도커로 했다면 필요없다.)</p>
+  <p>자바가 안깔려 있다면 자바도 깔아야 하고, 자바를 실행할 수 있게 시스템에 패스도 설정해야 한다.</p>
 </div>
 
-And this is a more sophisticated example, using the JS to include a carousel of images:
-
+<div class="alert alert-info">
+  <strong>Java Path<strong><br>
+  젠킨스 구동은 자바가 필요하다.(도커로 했다면 필요없다.)<br>
+  자바가 안깔려 있다면 자바도 깔아야 하고, 자바를 실행할 수 있게 시스템에 패스도 설정해야 한다.<br>
+</div>
 
 <div class="alert alert-info">
   <strong>Java Path<strong><br>
