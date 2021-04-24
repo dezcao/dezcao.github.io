@@ -170,8 +170,8 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 젠킨스가 깃과 소통하기 위한 라이러리 추가 설치한다.  
 <strong>Jenkins 관리 < 플러그인 관리 < 설치 가능 탭<strong>  
 
-<li>github integration을 설치한다.
-<li>publish over ssh를 설치한다.
+- github integration을 설치한다.
+- publish over ssh를 설치한다.
 
 
 <img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/github_integration.PNG"/>
@@ -267,10 +267,10 @@ http://젠킨스서버IP:9090/github-webhook/
 **Jenkins 관리 > 시스템 설정 > Publish Over SSH**
 Key에, AWS EC2라면 .pem key를 넣어주고, 아니면 젠킨스 서버의 id_rsa(개인키) 내용을 복사하여 입력한다.
 <img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/ssh_servers.PNG"/>
-<li>Name - test-server(임의입력)
-<li>Hostname - EC2 IP, 또는 IP
-<li>Username - ubuntu (서버의 사용자)
-<li>Remote Directory - /home/ubuntu (서버 사용자의 기본 접속폴더, 서버에 접속직후 pwd로 확인.)
+- Name - test-server(임의입력)
+- Hostname - EC2 IP, 또는 IP
+- Username - ubuntu (서버의 사용자)
+- Remote Directory - /home/ubuntu (서버 사용자의 기본 접속폴더, 서버에 접속직후 pwd로 확인.)
 
 ### New Item, 소스 코드 관리
 <img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem.PNG"/>
