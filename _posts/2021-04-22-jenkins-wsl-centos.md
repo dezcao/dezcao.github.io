@@ -118,7 +118,7 @@ sudo vi /etc/sysconfig/jenkins
 ```
 
 <div class="alert alert-info">
-  <h4>그런데, 왜 바꿀까?</h4><br>
+  <h4>그런데, 왜 바꿀까?</h4>
   많은 어플이 자동 제너레이트 되면, 8080을 많이 물고 올라간다. (Node, Vue 등)<br>
   그래서 양보하는 모양이다. 젠킨스는 관용적으로 9090을 많이 쓴단다.
 </div>
@@ -436,7 +436,7 @@ exit 0
         <li>링크파일들로 /etc/rc.d/init.d/디렉토리파일과 링크임.</li>
         <li>디렉토리 마지막에 <strong>/etc/rc.d/rc.local</strong> 파일이 실행되는 링크가 있음.</li>
         <li>rc.sysinit 에 의해 호출된다.</li>
-      <ul>
+      </ul>
     </li>
     <li>/etc/rc.d/rc.local 스크립트 실행 </li>
     <li>X윈도우 실행(부팅완료) </li>
