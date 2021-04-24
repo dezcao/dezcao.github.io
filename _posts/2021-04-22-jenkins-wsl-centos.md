@@ -7,12 +7,12 @@ tags:
   - github
 ---
 
-CentOS, Ubuntu 젠킨스를 설치 및 깃헙 소스가 갱신되면 자동 반영해보기.
+CentOS, Ubuntu에 젠킨스 설치 및 깃헙 소스가 갱신되면 자동반영 설정 해보기.
 
 <!--more-->
 
-테스트 코드 없이, 단순 반영하는 방법은 앙꼬없는 찐빵이라고 한다.  
-아직 테스트 코드를 실행하고 성공과 실패에 따라서 반영할지 말지를 결정하는 부분은 숙제다.  
+테스트코드 없이, 단순 반영하는 것은 앙꼬없는 찐빵이라고 한다.  
+아직 테스트코드를 실행하고 그 성공과 실패에 따라 반영할지 말지를 결정하는 부분은 숙제다.  
 리눅스 고자에, 실무에서도 배워보지 못한걸 인터넷 뒤져가며 해보는 나로써는 솔직히 이정도도 쉽지만은 않은 일이었다.  
 <br>
 하지만 '세팅' 이라는 것은 지능이나 논리, 창의력 같은 자산이 필요없다.  
@@ -21,7 +21,7 @@ CentOS, Ubuntu 젠킨스를 설치 및 깃헙 소스가 갱신되면 자동 반�
 무조건 성공할 수 있는 메뉴얼이 되었으면 한다.  
 <br>
 어차피 이걸 읽고 있는 사람들은 다 개발자일테니 본문에 불필요한 사족이 많다고 느낄 수 있다.  
-나의 눈높이와 필요에 맞춰 최대한 자세히 적으려 하다보니 그렇게 되었음을 양해 바란다.
+나의 눈높이와 필요에 맞춰, 최대한 자세히 적으려 하다보니 그렇게 되었음을 양해 바란다.
 
 ### Jenkins download and install
 아래 명령어를 복사하기 전에 설치와 관련하여 변한건 없는지 공식 사이트를 확인하자.  
@@ -78,25 +78,30 @@ docker version
 ```
 [curl -fsSL example.org 설명](https://explainshell.com/explain?cmd=curl+-fsSL+example.org)
 
-#### docker jenkins download [도커허브](https://hub.docker.com/r/jenkins/jenkins)
+
+#### Docker jenkins download
+[도커허브](https://hub.docker.com/r/jenkins/jenkins)
 ```
 sudo docker pull jenkins/jenkins:lts
 ```
 
-#### start docker jenkins background
+
+#### Start docker jenkins background
 ```
 sudo docker run -d --name my-jenkins -p 9090:9090 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
 ```
 
-#### docker jenkins 초기 password
+
+#### Docker jenkins 초기 password
 ```
 sudo cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
 ```
 
+
 ### Java Path
-젠킨스 구동은 자바가 필요하다.  
+젠킨스 구동은 자바가 필요하다.(도커로 했다면 필요없다.)  
 자바가 안깔려 있다면 자바도 깔아야 하고, 자바를 실행할 수 있게 시스템에 패스도 설정해야 한다.  
-그래서 도커로 하면, 여러사람이 함께쓰는 서버 공간을 더럽히지 않으면서 관리하기 편해질 것이다.
+그래서 도커로 하면, 여러사람이 함께쓰는 서버 공간을 더럽히지 않으면서 관리하기 편해질 것이다.  
 하지만, 젠킨스 홈에서 제공한 명령어를 보면 이미 openjdk 자바를 같이 깔도록 안내하고 있다.
 ```
 java -version
@@ -115,15 +120,15 @@ echo $PATH | grep /usr/bin
 잘 들어있다.
 
 
-### Port 변경하기 (일반설치시)
+### Port 변경하기
 ```
-# jenkins config 열기
+# jenkins config 열기 (도커일땐 위에서 이미 9090으로 열었다.)
 sudo vi /etc/sysconfig/jenkins
 ```
 그런데, 왜 바꿀까?  
 많은 어플들이 자동으로 제너레이트 되면, 서버를 올릴때 8080을 많이 물고 올라간다. (Node, Vue 등)  
 그래서 양보하는 모양이다. 젠킨스는 관용적으로 9090을 많이 쓴단다.  
-파일에서 <strong>JENKINS_PORT="9090"<strong> 부분을 찾아서 바꿔준다.
+파일에서 **JENKINS_PORT="9090"** 부분을 찾아서 바꿔준다.
 
 
 ### Start, Status Jenkins 명령어
@@ -136,8 +141,7 @@ sudo systemctl status jenkins
 ### 접속하기
 브라우저에서 젠킨스 페이지(http://젠킨스서버IP:9090) 진입을 해보면, 초기 비번을 물어본다.  
 AWS 같은 클라우드 서비스를 사용한다면 젠킨스 페이지를 접근 하기위한 포트를 열어주는걸 잊지 말자.  
-이후부터는, 젠킨스에 이런저런 세팅을 하는것 이므로 동일하다.  
-
+이후부터는, 젠킨스에 이런저런 세팅을 하는것 이므로 동일하다.
 <br>
 
 #### 일반 jenkins 초기 password 복사
@@ -151,14 +155,15 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
 사용할 계정생성까지 해서 젠킨스 관리페이지로 로그인 해준다.  
 <img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/create_admin.PNG"/>
-
+<br>
 
 #### 비밀번호는 왜 /var 그러니까 /var/lib에 있는걸까
 [출처: https://jadehan.tistory.com/11](https://jadehan.tistory.com/11)  
-리눅스에서 /var 폴더는, 가변데이터 파일, 시스템 로그, 스풀링 파일, 메일 서버로 운영될 경우 메일 저장된다.  
-젠장, 스풀링은 뭐지? 나중에 처리하거나 인쇄하기 위해 데이터를 저장하는 시스템 기능이란다.[출처](https://www.ibm.com/docs/ko/i/7.3?topic=queues-spooled-files)  
-요약하면, /var/lib - 가변 상태 정보 데이터가 위치한다.  
-/var 디렉토리는 /usr 디렉토리가 read-only로 마운트하도록 하는데, 시스템을 운영(설치나 유지가 아닌)하는 동안 /usr 디렉토리에 작성된 모든 것들이 /var에 있어야 한다.
+/var 폴더는, 가변데이터 파일, 시스템 로그, 스풀링 파일, 메일 서버로 운영될 경우 메일 저장된다.  
+스풀링? 나중에 처리하거나 인쇄하기 위해 데이터를 저장하는 시스템 기능이란다.[출처](https://www.ibm.com/docs/ko/i/7.3?topic=queues-spooled-files)  
+/var/lib 는 가변 상태 정보 데이터가 위치한다.  
+/var 디렉토리는 /usr 디렉토리가 read-only로 마운트하도록 하는데,  
+시스템을 운영시 /usr 디렉토리에 작성된 모든 것들이 /var에 있어야 한다.
 
 
 ### Github 연동
@@ -168,34 +173,103 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
   <li>github integration을 설치한다.
   <li>publish over ssh를 설치한다.
 </ul>
+
 <img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/github_integration.PNG"/>
 
+<br>
+깃허브와 ssh 통신을 위한 키 등록하기 (private repository인 경우 젠킨스에 설정을 해야 연동됨.)  
+
+#### ssh
+젠킨스가 설치된 서버와 배포될 서버가 다른 경우가 있고, 젠킨스와 배포서버가 동일한 경우가 있을 것이다.  
+ssh 통신방식을 알면 설정을 하면서 조금은 덜 막연해 지는것 같다.  
+내가 아는대로 설명해 보자면 기본적으로 다음과 같다. 
+<br>
+ssh-keygen을 하게되면 공개키(.pub로 끝나는 키), 비밀키 두개가 생긴다.  
+공개키는 나눠주고, 비밀키는 생성한 머신(PC)가 혼자서 꽁꽁 잘 보관해 둔다.  
+통신을 할일이 생기면, 공개키를 가지고 있는 서버는 암호화 통신을 위한 임시키(공유키)를 생성한다.  
+그리고 공개키로 임시키를 암호화하여 보낸다.  
+비밀키를 가지고 있는 서버는 공개키로 암호화된 전문을 복호화 할 수 있고, 그 안의 임시키를 얻을 수 있게된다.  
+이제 임시키를 이용해 두 서버가 통신을 하고, 통신이 끝나면 임시키는 파괴된다.  
 
 
-깃허브와 ssh 통신을 위한 키 등록하기 (private repository인 경우 해야만 연동됨.)  
+### Jenkins, Server, Git SSH setting
+배포서버와 젠킨스 서버가 다를때, 배포될 서버에 SSH 공개키 등록하기
+: 젠킨스가 속한 서버의 ssh 공개키 id_rsa.pub를 배포될 서버의 authorized_keys 파일 내용으로 추가해준다.  
+나는, 젠킨스와 배포서버가 같은곳에 있기 때문에, 키젠 이후생성된 공개키를 등록파일에 그대로 등록했다.  
+ssh로 깃 서비스를 사용하려면, 코딩을 하는 로컬PC이든, 서버이든 그 머신의 공개키를 Github에 등록하면 된다.  
+```
+# ssh 키를 생성한다. .ssh 폴더 아래로 생긴다.
+# -t 암호화 타입, ed25519는 암호화 알고리즘의 종류이다. ( ed25519 | rsa )
+# -C comment, 따옴표 안은 마음대로 쓰면된다. 
+ssh-keygen -t ed25519 -C "dezcao@gmail.com"
 
-배포될 서버에 SSH 공개키 등록
-: 젠킨스와 배포서버의 위치가 다르다면, 젠킨스가 속한 서버의 ssh 공개키 id_rsa.pub 를
-배포될 서버의 authorized_keys 파일 내용으로 추가해준다.
-나는, 젠킨스와 배포서버가 같은곳에 있기 때문에, 그냥 공개키 바로 등록했다.
-경로 : ~/.ssh/authorized_keys
+# 공개키 등록파일에 등록한다. >> 는 덮어쓰는 대신 해당 파일에 cat한 내용을 추가해줄 것이다.
+cat id_rsa.pub >> ~/.ssh/authorized_keys
 
-$ cat id_rsa.pub >> ~/.ssh/authorized_keys
-ls -l .ssh/authorized_keys를 보면 권한 보인다.
-$ chmod 700 ~/.ssh/authorized_keys
-<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/authorized_keys.PNG"/>
+# 권한을 확인해 본다.
+ls -l .ssh/authorized_keys
+
+# 권한을 변경한다.
+chmod 700 ~/.ssh
+chmod 544 ~/.ssh/authorized_keys
+
+# 권한을 확인해 본다.
+ls -l .ssh/authorized_keys
+```
 
 
-Jenkins 관리 > 시스템 설정 > Publish Over SSH
-SSH Servers에 서버 정보 추가
+#### 왜 자꾸 권한을 변경해줘야 하는걸까?
+파일, 폴더를 생성하면 모든 권한이 주어져 있지 않다.  
+파일의 권한 표시 옵션인 -l을 줘서 ls -l을 하면,  
+맨 앞자리는 파일과 디렉토리를 구분하고(- 파일, d 디렉토리), 이후부터  
+rwx는 차례대로 읽기, 쓰기, 실행(혹은 폴더 들어가기 권한), 권한이 없으면 -(대쉬)로 표현된다.  
+첫 세자리는 유저, 두번째 세자리는 그룹, 세번째 rwx자리는 다른 사용자의 권한을 의미한다.  
+rwx는 숫자 421로도 대변된다(8진수). 따라서 7은 모든 권한, 6(4+2)은 읽기와 쓰기, 5(4+1)은 읽기와 실행 같은 의미이다.  
+즉, +rw는 +6으로도 표시할 수 있지만 그냥 rwx등 직관적으로 쓰는것과 차이는 없다.  
+700이면, 사용자는 모든권한(rwx), 그룹과 다른 사용자는 아무런 권한도 없는것이 된다.  
+<br>
+
+[linux umask 제타위키](https://zetawiki.com/wiki/%EB%A6%AC%EB%88%85%EC%8A%A4_umask)  
+umask - 새 폴더, 새 파일의 퍼미션(권한)을 결정하는 값, 또는 설정 명령어이다. 디폴트는 0022이다.  
+umask의 값은 Shell에 의존적이어서 각 Shell에 따라 0022(sh), 022(ksh), 22(csh), 022(ksh)으로 기본 값으로 정해져 있다.  
+0022라고 나오면 맨 앞에 부분은 없는 것이라고 생각하고 3자리만 기억하면 된다.  
+<br>
+umask 값과 새 폴더 퍼미션 값을 더하면 777이 된다. (예: 022 + 755 = 777)  
+파일의 경우 실행권한은 모두 빠진다.  
+즉, umask 022인 경우의 생성되는 권한은 아래와 같다.
+```
+새 폴더: 755
+새 파일: 644
+```
+그래서 파일을 생성한 뒤에 다른 유저들도 해당 파일을 실행할 수 있도록 권한을 추가해 주는 것이다.  
+
+[출처 : umask 추가설명](https://securityspecialist.tistory.com/40)
+<br>
+
+
+### Github Webhook
+**사용자클릭 < 설정 < API Token, Add new Token, Generate token**
+<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/webhook1.PNG"/>
+
+**Github/project < Settings < Webhooks < Add webhook**
+<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/webhook2.PNG"/>
+
+**Payload URL**
+포트도 잊지말고 써준다. EC2라면 공개주소가 있을것이다.  
+http://젠킨스서버IP:9090/github-webhook/
+**Secret**
+젠킨스에서 생성한 토큰을 넣는다.
+<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/webhook3.PNG"/>
+
+### Jenkins setting
+**Jenkins 관리 > 시스템 설정 > Publish Over SSH**
+Key에, AWS EC2라면 .pem key를 넣어주고, 아니면 젠킨스 서버의 id_rsa(개인키) 내용을 복사하여 입력한다.
 <img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/ssh_servers.PNG"/>
-Name - test-server
-Hostname - 192.168.0.22
-Username - root
-고급 > User password authentication, or use a different key 체크
-Key - SSH 키 설정 과정에서 생성한 id_rsa(비공개키-젠킨스가 설치된 서버의 비공개키) 파일 내용 추가
-저장
-
+<li>Name - test-server(임의입력)
+<li>Hostname - EC2 IP, 또는 IP
+<li>Username - ubuntu (서버의 사용자)
+<li>Remote Directory - /home/ubuntu (서버 사용자의 기본 접속폴더, 접속직후면 pwd로 확인.)
+<li>고급버튼 > User password authentication, or use a different key 체크
 
 타겟 브랜치(master 따위)가 변경되면 서버에 배포가 일어나는지 확인해보자.
 
@@ -219,26 +293,6 @@ touch /etc/rc.local
 sudo chmod +x /etc/rc.local
 ```
 
-### 왜 자꾸 권한을 줘야 하는걸까?
-우선,  
-rwx는 차례대로 읽기, 쓰기, 실행이나 폴더 들어가기 권한이며 권한이 없으면 -(대쉬)로 표현된다.  
-rwx는 숫자 421로도 대변된다(8진수). 따라서 7은 모든 권한, 6(4+2)은 읽기와 쓰기, 5(4+1)은 읽기와 실행 같은 의미가 된다.
-즉, +rw는 +6으로도 표시할 수 있지만 그냥 rwx등 직관적으로 쓰는것과 차이는 없다.  
-<br>
-
-[linux umask 제타위키](https://zetawiki.com/wiki/%EB%A6%AC%EB%88%85%EC%8A%A4_umask)
-umask - 새 폴더, 새 파일의 퍼미션을 결정하는 값, 또는 설정 명령어. 이것도 세팅 변경할 수 있다지만 어쨌든, 디폴트는 0022이다.  
-umask 값과 새 폴더 퍼미션 값을 더하면 777이 된다. (예: 022 + 755 = 777)  
-파일의 경우 실행권한은 모두 빠진다.  
-그래서 파일을 생성한 뒤에는 다른 유저들도 해당 파일을 실행할 수 있도록 권한을 추가해 주는 것이다.  
-즉, umask 022인 경우의 생성되는 권한은 아래와 같다.
-```
-새 폴더: 755
-새 파일: 644
-```
-umask의 값은 Shell에 의존적이여서 각 Shell에 따라 0022(sh), 022(ksh), 22(csh), 022(ksh)으로 기본 값으로 정해져 있습니다.  
-0022라고 나오면 맨 앞에 부분은 없는 것이라고 생각하고 3자리만 기억하면 됩니다.
-[출처 : umask 추가설명](https://securityspecialist.tistory.com/40)
 
 <br>
 파일을 만들어, 만든 파일의 내용을 쉘 스크립트 작성 문법에 맞게 채운다.
