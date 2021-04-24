@@ -96,27 +96,28 @@ sudo docker run -d --name my-jenkins -p 9090:9090 -p 50000:50000 -v jenkins_home
 sudo cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
 ```
 
-
-> ### Java Path
-> 젠킨스 구동은 자바가 필요하다.(도커로 했다면 필요없다.)  
-자바가 안깔려 있다면 자바도 깔아야 하고, 자바를 실행할 수 있게 시스템에 패스도 설정해야 한다.  
-그래서 도커로 하면, 여러사람이 함께쓰는 서버 공간을 더럽히지 않으면서 관리하기 편해질 것이다.  
-하지만, 젠킨스 홈에서 제공한 명령어를 보면 이미 openjdk 자바를 같이 깔도록 안내하고 있다.
-> ```
-> java -version
-> javac -version
-> ```
-> 확인해보니 잘 설치 되었다. 참고로, java가 어디있는지 찾고싶으면 whereis 명령어를 써본다.
-> ```
-> whereis java
-> whereis javac
-> ```
-> /usr/bin에 들어있는걸 알 수 있다.  
-> echo $PATH로 환경변수를 출력해 볼 수 있고, 파이프(|)로 결과물을 넘겨, grep으로 문자열을 찾아봤다.
-> ```
-> echo $PATH | grep /usr/bin
-> ```
-> 잘 들어있다.
+<div class="alert alert-info">
+    ### Java Path
+    젠킨스 구동은 자바가 필요하다.(도커로 했다면 필요없다.)  
+    자바가 안깔려 있다면 자바도 깔아야 하고, 자바를 실행할 수 있게 시스템에 패스도 설정해야 한다.  
+    그래서 도커로 하면, 여러사람이 함께쓰는 서버 공간을 더럽히지 않으면서 관리하기 편해질 것이다.  
+    하지만, 젠킨스 홈에서 제공한 명령어를 보면 이미 openjdk 자바를 같이 깔도록 안내하고 있다.
+    ```
+    java -version
+    javac -version
+    ```
+    확인해보니 잘 설치 되었다. 참고로, java가 어디있는지 찾고싶으면 whereis 명령어를 써본다.
+    ```
+    whereis java
+    whereis javac
+    ```
+    /usr/bin에 들어있는걸 알 수 있다.  
+    echo $PATH로 환경변수를 출력해 볼 수 있고, 파이프(|)로 결과물을 넘겨, grep으로 문자열을 찾아봤다.
+    ```
+    echo $PATH | grep /usr/bin
+    ```
+    잘 들어있다.
+</div>
 
 
 ### Port 변경하기
@@ -357,7 +358,9 @@ http://젠킨스서버IP:9090/github-webhook/
     <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem5.PNG"/>
     <div class="card-body bg-light">
         <div class="card-text">
-            Private Key, Enter directly를 선택해서 비공개키(개인키, 젠킨스서버의 비공개키, 이를테면 id_ed25519) 내용을 복사해 넣는다.
+            Private Key, Enter directly를 선택해서 비공개키
+            <br>
+            (개인키, 젠킨스서버의 비공개키, 이를테면 id_ed25519) 내용을 복사해 넣는다.
             <br>
             Add 버튼을 눌러 마친후, Credentials에서 방금 생성한 크레덴셜을 선택해준다.
         </div>
@@ -366,7 +369,7 @@ http://젠킨스서버IP:9090/github-webhook/
 
 <br>
 Branches to build : */main  
-main은 브랜치명이므로 브랜치가 다르다면 변경한다.  
+main은 브랜치명이므로 브랜치가 다르다면 변경한다.
 
 [git branch가 master가 아니라 main이 된 이유](https://dunchi.tistory.com/92)
 
@@ -385,9 +388,9 @@ main은 브랜치명이므로 브랜치가 다르다면 변경한다.
         <div class="card-text">
             빌드 후 조치 : Send build artifacts over SSH
             <p>
-              실행할 쉘스크립트를 미리작성하여 해당 스크립트를 실행하게 할수도 있다.  
-              간단한 명령어는 직접 입력해도 된다. 타켓 디렉토리가 없다면 생긴다.  
-              이 과정에서 테스트에 실패한다면 서버반영 및 재시작이 일어나지 않아야 한다.  
+              실행할 쉘스크립트를 미리작성하여 해당 스크립트를 실행하게 할수도 있다.<br>
+              간단한 명령어는 직접 입력해도 된다. 타켓 디렉토리가 없다면 생긴다.<br>
+              이 과정에서 테스트에 실패한다면 서버반영 및 재시작이 일어나지 않아야 한다.
             </p>
         </div>
     </div>
@@ -397,8 +400,6 @@ main은 브랜치명이므로 브랜치가 다르다면 변경한다.
 ### 자동 재실행 설정
 서버가 리부트 되었을때, 수동으로 젠킨스를 올린다면 불편하고 즉각 대응도 안될것이다.  
 리눅스에서 리부트 시점에 실행하는 쉘파일에 젠킨스도 같이 실행하도록 명령어를 추가해준다.  
-
-
 ```
 vi /etc/rc.local
 
@@ -408,14 +409,11 @@ sudo systemctl start jenkins
 # 도커라면 도커컨테이너 네임으로
 sudo docker restart my-jenkins
 ```
-
 만약 해당 파일이 없으면, 만들고, 실행 권한을 준다.
 ```
 touch /etc/rc.local
 sudo chmod +x /etc/rc.local
 ```
-
-<br>
 없어서 새로 파일을 만든다면, 그 내용을 쉘 스크립트 작성 문법에 맞게 채운다.
 ```
 #!/bin/bash
