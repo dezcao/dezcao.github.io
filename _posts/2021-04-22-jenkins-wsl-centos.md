@@ -169,10 +169,10 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ### Github 연동
 젠킨스가 깃과 소통하기 위한 라이러리 추가 설치한다.  
 <strong>Jenkins 관리 < 플러그인 관리 < 설치 가능 탭<strong>  
-<ul>
-  <li>github integration을 설치한다.
-  <li>publish over ssh를 설치한다.
-</ul>
+
+<li>github integration을 설치한다.
+<li>publish over ssh를 설치한다.
+
 
 <img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/github_integration.PNG"/>
 
@@ -257,21 +257,44 @@ umask 값과 새 폴더 퍼미션 값을 더하면 777이 된다. (예: 022 + 75
 **Payload URL**
 포트도 잊지말고 써준다. EC2라면 공개주소가 있을것이다.  
 http://젠킨스서버IP:9090/github-webhook/
+
 **Secret**
 젠킨스에서 생성한 토큰을 넣는다.
 <img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/webhook3.PNG"/>
 
-### Jenkins setting
+
+### Publish over SSH
 **Jenkins 관리 > 시스템 설정 > Publish Over SSH**
 Key에, AWS EC2라면 .pem key를 넣어주고, 아니면 젠킨스 서버의 id_rsa(개인키) 내용을 복사하여 입력한다.
 <img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/ssh_servers.PNG"/>
 <li>Name - test-server(임의입력)
 <li>Hostname - EC2 IP, 또는 IP
 <li>Username - ubuntu (서버의 사용자)
-<li>Remote Directory - /home/ubuntu (서버 사용자의 기본 접속폴더, 접속직후면 pwd로 확인.)
-<li>고급버튼 > User password authentication, or use a different key 체크
+<li>Remote Directory - /home/ubuntu (서버 사용자의 기본 접속폴더, 서버에 접속직후 pwd로 확인.)
 
-타겟 브랜치(master 따위)가 변경되면 서버에 배포가 일어나는지 확인해보자.
+### New Item, 소스 코드 관리
+<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem.PNG"/>
+<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem2.PNG"/>
+<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem3.PNG"/>
+
+소스 코드 관리로 Git을 선택하고, 깃 ssh url을 입력한다.  
+처음엔, 선택할 크레덴셜이 없기 때문에 Jenkins를 선택하여 팝업을 띄운다.
+<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem3-2.PNG"/>
+
+Kind에서 SSH Username with private key를 선택해준다.
+<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem4.PNG"/>
+
+Private Key, Enter directly를 선택해서 비공개키(개인키, 젠킨스서버의 비공개키, 이를테면 id_ed25519) 내용을 복사해 넣는다.
+<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem5.PNG"/>
+
+Branches to build : */main  
+main은 브랜치명이므로 브랜치가 다르다면 변경한다.  
+빌드 유발 : GitHub hook trigger for GITScm polling
+<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem6.PNG"/>
+
+빌드 후 조치 : Send build artifacts over SSH
+<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem7.PNG"/>
+<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem8.PNG"/>
 
 ### 자동 재실행 설정
 서버가 리부트 되었을때, 수동으로 젠킨스를 올린다면 불편하고 즉각 대응도 안될것이다.  
