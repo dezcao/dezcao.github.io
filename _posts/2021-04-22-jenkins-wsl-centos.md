@@ -90,10 +90,14 @@ sudo docker run -d --name my-jenkins -p 9090:9090 -p 50000:50000 -v jenkins_home
 sudo cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
 ```
 
-
 > aaaa
-> a eee
+> aeee
 
+> This is a blockquote.
+>     on multiple lines
+that may be lazy.
+>
+> This is the second paragraph.
 
 <div class="alert alert-secondary">
   <h4>Java Path</h4>
@@ -101,22 +105,26 @@ sudo cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
   <span>자바가 안깔려 있다면 자바도 깔아야 하고, 자바를 실행할 수 있게 시스템에 패스도 설정해야 한다.<span><br>
   <span>그래서 도커로 하면, 여러사람이 함께쓰는 서버 공간을 더럽히지 않으면서 관리하기 편해질 것이다.</span><br>
   <span>하지만, 젠킨스 홈에서 제공한 명령어를 보면 이미 openjdk 자바를 같이 깔도록 안내하고 있다.</span>
-  <div class="alert alert-secondary" role="alert">
+  
+  <span>확인해보니 잘 설치 되었다. 참고로, java가 어디있는지 찾고싶으면 whereis 명령어를 써본다.</span>
+  
+  <span>/usr/bin에 들어있는걸 알 수 있다.</span><br>
+  <span>echo $PATH로 환경변수를 출력해 볼 수 있고, 파이프(|)로 결과물을 넘겨, grep으로 문자열을 찾아봤다.</span>
+  
+</div>
+
+<div class="alert alert-secondary" role="alert">
     <span>java -version</span><br>
     <span>javac -version</span>
   </div>
-  <span>확인해보니 잘 설치 되었다. 참고로, java가 어디있는지 찾고싶으면 whereis 명령어를 써본다.</span>
-  <div class="alert alert-secondary" role="alert">
+<div class="alert alert-secondary" role="alert">
     <span>whereis java</span><br>
     <span>whereis javac</span>
   </div>
-  <span>/usr/bin에 들어있는걸 알 수 있다.</span><br>
-  <span>echo $PATH로 환경변수를 출력해 볼 수 있고, 파이프(|)로 결과물을 넘겨, grep으로 문자열을 찾아봤다.</span>
-  <div class="alert alert-secondary" role="alert">
+<div class="alert alert-secondary" role="alert">
     echo $PATH | grep /usr/bin
   </div>
-</div>
-
+  
 ### Port 변경하기
 ```
 # jenkins config 열기 (도커일땐 위에서 이미 9090으로 열었다.)
