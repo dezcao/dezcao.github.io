@@ -175,6 +175,8 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 - publish over ssh를 설치한다.
 
 <img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/github_integration.PNG"/>
+
+### Jenkins, Server, Git SSH setting
 깃허브와 ssh 통신을 위한 키 등록하기 (private repository인 경우 젠킨스에 설정을 해야 연동됨.)  
 
 #### ssh
@@ -191,7 +193,7 @@ ssh 통신방식을 알면 설정을 하면서 조금은 덜 막연해 지는것
 - 이제, 임시키를 이용해 두 서버가 통신을 하고, 통신이 끝나면 임시키는 파괴된다.
 <br>
 
-### Jenkins, Server, Git SSH setting
+이제 해보자,  
 배포서버와 젠킨스 서버가 다를때, 배포될 서버에 젠킨스의 SSH 공개키를 등록한다.  
 공개키 등록은 authorized_keys 파일 내용으로 추가하면 된다.  
 나는, 젠킨스와 배포서버가 같은곳에 있기 때문에, 키젠 이후 공개키를 등록파일에 그대로 등록했다.  
@@ -214,24 +216,26 @@ chmod 544 ~/.ssh/authorized_keys
 # 권한을 확인해 본다.
 ls -l .ssh/authorized_keys
 ```
-
+<br>
 
 #### 왜 자꾸 권한을 변경해줘야 하는걸까?
 파일, 폴더를 생성하면 모든 권한이 주어져 있지 않다.  
-<br>
 
 ##### chmod, chown ?
 - chown 파일이나 디렉토리의 소유주를 바꾸는 명령.
 - chmod 파일이나 디렉토리의 권한을 바꾸는 명령.
+
 권한과 소유권을 보는 명령어
 ```
 ls -l
 ```
 
 파일의 권한 표시 옵션인 -l을 줘서 ls -l을 하면,  
-맨 앞자리는 파일과 디렉토리를 구분하고(- 파일, d 디렉토리), 이후부터  
-rwx는 차례대로 읽기, 쓰기, 실행(혹은 폴더 들어가기 권한), 권한이 없으면 -(대쉬)로 표현된다.  
-첫 세자리는 유저, 두번째 세자리는 그룹, 세번째 rwx자리는 다른 사용자의 권한을 의미한다.  
+맨 앞자리는 파일과 디렉토리를 구분하고(- 파일, d 디렉토리),  
+이후부터 rwx는 읽기, 쓰기, 실행(혹은 폴더 들어가기 권한), 권한이 없으면 -(대쉬)로 표현된다.
+<br>
+첫 세자리는 유저, 두번째 세자리는 그룹, 세번째 rwx자리는 다른 사용자의 권한을 의미한다.
+<br>
 rwx는 숫자 421로도 대변된다(8진수). 따라서 7은 모든 권한, 6(4+2)은 읽기와 쓰기, 5(4+1)은 읽기와 실행 같은 의미이다.  
 즉, +rw는 +6으로도 표시할 수 있지만 그냥 rwx등 직관적으로 쓰는것과 차이는 없다.  
 700이면, 사용자는 모든권한(rwx), 그룹과 다른 사용자는 아무런 권한도 없는것이 된다.  
@@ -316,14 +320,15 @@ main은 브랜치명이므로 브랜치가 다르다면 변경한다.
 서버가 리부트 되었을때, 수동으로 젠킨스를 올린다면 불편하고 즉각 대응도 안될것이다.  
 리눅스에서 리부트 시점에 실행하는 쉘파일에 젠킨스도 같이 실행하도록 명령어를 추가해준다.  
 
-파일을 열고,
+
 ```
 vi /etc/rc.local
-```
 
-명령어를 추가한다.
-```
+# 명령어를 추가한다.
 sudo systemctl start jenkins
+
+# 도커라면 도커컨테이너 네임으로
+sudo docker restart my-jenkins
 ```
 
 만약 해당 파일이 없으면, 만들고, 실행 권한을 준다.
@@ -332,9 +337,8 @@ touch /etc/rc.local
 sudo chmod +x /etc/rc.local
 ```
 
-
 <br>
-새로 파일을 만든다면, 내용을 쉘 스크립트 작성 문법에 맞게 채운다.
+없어서 새로 파일을 만든다면, 그 내용을 쉘 스크립트 작성 문법에 맞게 채운다.
 ```
 #!/bin/bash
 sudo systemctl start jenkins
@@ -348,11 +352,11 @@ exit 0
 - ROM-BIOS
 - 부트로더- GRUB(Erich Stefan Boleny가 개발한 부트로더, /boot 폴더에 들어있음.)
 - 스와퍼 프로세스
-- init 프로세스
+- init 프로세스. /sbin/init 프로세스가 실행. /etc/inittab의 설정에 따라 초기화를 시작한다.
 - 부트레벨 결정
-- /etc/rc.d/rc.sysinit 스크립트 실행
-- /etc/rc.d/rc.local 스크립트 실행 - rc.sysinit 에 의해 호출된다. rc.local은 부팅시 수행하고 싶은 명령의 스크립트 모음이다.
-- rcX.d 스크립트 실행 
-- X윈도우 실행
+- /etc/rc.d/rc.sysinit 스크립트 실행. 네트워크, 파일시스템 점검, 커널 로딩 등.
+- /etc/rc.d/rc[0-6].d 디렉토리의 스크립트들이 실행. 링크파일들로 /etc/rc.d/init.d/디렉토리파일과 링크임. 각 디렉토리 마지막에 /etc/rc.d/rc.local 파일이 실행되는 링크가 있음. rc.sysinit 에 의해 호출된다. 부팅시 수행하고 싶은 명령의 모음이다.
+- /etc/rc.d/rc.local 스크립트 실행 
+- X윈도우 실행(부팅완료)
 
 
