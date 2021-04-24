@@ -148,7 +148,9 @@ AWS 같은 클라우드 서비스를 사용한다면 포트 열어주는걸 잊�
 ```
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
-<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/unlock.PNG"/>
+<div class="card mb-3">
+    <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/unlock.PNG"/>
+</div>
 
 > #### 비밀번호는 왜 /var 그러니까 /var/lib에 있는걸까
 > [출처: https://jadehan.tistory.com/11](https://jadehan.tistory.com/11)  
@@ -158,26 +160,41 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 > /var 디렉토리는 /usr 디렉토리가 read-only로 마운트하도록 하는데,  
 > 시스템을 운영시 /usr 디렉토리에 작성된 모든 것들이 /var에 있어야 한다.
 
-<br>
-이후 install suggested plugins 설치를 쭉쭉 진행한다.  
-<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/install_suggested.PNG"/>
+<div class="card mb-3">
+    <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/install_suggested.PNG"/>
+    <div class="card-body bg-light">
+        <div class="card-text">
+            이후 install suggested plugins 설치를 쭉쭉 진행한다.
+        </div>
+    </div>
+</div>
 
-사용할 계정생성까지 해서 젠킨스 관리페이지로 로그인 해준다.  
-<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/create_admin.PNG"/>
-<br>
+<div class="card mb-3">
+    <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/create_admin.PNG"/>
+    <div class="card-body bg-light">
+        <div class="card-text">
+            사용할 계정생성까지 해서 젠킨스 관리페이지로 로그인 해준다.
+        </div>
+    </div>
+</div>
 
 ### Github 연동
 젠킨스에 라이러리를 추가 설치한다.  
-<strong>Jenkins 관리 < 플러그인 관리 < 설치 가능 탭<strong>  
+**Jenkins 관리 < 플러그인 관리 < 설치 가능 탭**
 
 - github integration을 설치한다.
 - publish over ssh를 설치한다.
 
-<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/github_integration.PNG"/>
+<div class="card mb-3">
+    <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/github_integration.PNG"/>
+    <div class="card-body bg-light">
+        <div class="card-text">
+            깃허브와 ssh 통신을 위한 키 등록하기 (private repository인 경우 설정을 해야만 연동됨.)  
+        </div>
+    </div>
+</div>
 
 ### Jenkins, Server, Git SSH setting
-깃허브와 ssh 통신을 위한 키 등록하기 (private repository인 경우 설정을 해야만 연동됨.)  
-
 > #### ssh
 > 젠킨스 설치 서버와 배포 서버가 다른 경우가 있고, 동일한 경우가 있을 것이다.  
 > ssh 통신방식을 알면 설정을 하면서 조금은 덜 막연해 지는것 같다.  
@@ -258,47 +275,94 @@ ls -l .ssh/authorized_keys
 
 
 ### Github Webhook
-**사용자 아이디 클릭 < 설정 < API Token, Add new Token, Generate token**
-깃허브 웹후크에 등록해줄 키를 생성해준다.
-<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/webhook1.PNG"/>
+#### 사용자 아이디 클릭 < 설정 < API Token, Add new Token, Generate token
+<div class="card mb-3">
+    <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/webhook1.PNG"/>
+    <div class="card-body bg-light">
+        <div class="card-text">
+            깃허브 웹후크에 등록해줄 키를 생성해준다.
+        </div>
+    </div>
+</div>
 
-**Github/project < Settings < Webhooks < Add webhook**
-깃 프로젝트의 설정에서 웹후크를 생성하러 간다.
-<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/webhook2.PNG"/>
+#### Github/project < Settings < Webhooks < Add webhook
+<div class="card mb-3">
+    <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/webhook2.PNG"/>
+    <div class="card-body bg-light">
+        <div class="card-text">
+            깃 프로젝트의 설정에서 웹후크를 생성하러 간다.
+        </div>
+    </div>
+</div>
 
-**Payload URL**
+#### Payload URL
 URL 입력시, 젠킨스의 포트도 잊지말고 써준다. EC2라면 공개주소(IP)가 있을것이다.  
 http://젠킨스서버IP:9090/github-webhook/
 
-**Secret**
-젠킨스에서 생성한 토큰을 넣는다.
-<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/webhook3.PNG"/>
-설정했다면, 저장하고 젠킨스에 가서 나머지 세팅을 하자.
+#### Secret
+<div class="card mb-3">
+    <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/webhook3.PNG"/>
+    <div class="card-body bg-light">
+        <div class="card-text">
+            젠킨스에서 생성한 토큰을 넣는다.<br>
+            설정했다면, 저장하고 젠킨스에 가서 나머지 세팅을 하자.
+        </div>
+    </div>
+</div>
 
 ### Jenkins, Publish over SSH
 **Jenkins 관리 > 시스템 설정 > Publish Over SSH**
-Key에, AWS EC2라면 .pem key를 넣어주고, 아니면 젠킨스 서버의 id_rsa 또는 id_ed25519(개인키)내용을 복사해 입력한다.
-<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/ssh_servers.PNG"/>
+<div class="card mb-3">
+    <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/ssh_servers.PNG"/>
+    <div class="card-body bg-light">
+        <div class="card-text">
+            Key에, AWS EC2라면 .pem key를 넣어주고, 아니면 젠킨스 서버의 id_rsa 또는 id_ed25519(개인키)내용을 복사해 입력한다.
+        </div>
+    </div>
+</div>
+
 - Name - test-server(임의입력)
 - Hostname - EC2 IP, 또는 IP
 - Username - ubuntu (서버의 사용자)
 - Remote Directory - /home/ubuntu (서버 사용자의 기본 접속폴더, 서버에 접속직후 pwd로 확인.)
 
 ### Jenkins, New Item, 소스 코드 관리 설정
-<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem.PNG"/>
-<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem2.PNG"/>
-<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem3.PNG"/>
-
-소스 코드 관리로 Git을 선택하고, 깃 ssh url을 입력한다.  
-처음엔, 선택할 크레덴셜이 없기 때문에 Add Jenkins를 선택하여 팝업을 띄운다.
-<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem3-2.PNG"/>
-
-Kind에서 SSH Username with private key를 선택해준다.
-<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem4.PNG"/>
-
-Private Key, Enter directly를 선택해서 비공개키(개인키, 젠킨스서버의 비공개키, 이를테면 id_ed25519) 내용을 복사해 넣는다.
-<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem5.PNG"/>
-Add 버튼을 눌러 마친후, Credentials에서 방금 생성한 크레덴셜을 선택해준다.
+<div class="card mb-3">
+    <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem.PNG"/>
+</div>
+<div class="card mb-3">
+    <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem2.PNG"/>
+</div>
+<div class="card mb-3">
+    <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem3.PNG"/>
+</div>
+<div class="card mb-3">
+    <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem3-2.PNG"/>
+    <div class="card-body bg-light">
+        <div class="card-text">
+            소스 코드 관리로 Git을 선택하고, 깃 ssh url을 입력한다.<br>
+            처음엔, 선택할 크레덴셜이 없기 때문에 Add Jenkins를 선택하여 팝업을 띄운다.
+        </div>
+    </div>
+</div>
+<div class="card mb-3">
+    <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem4.PNG"/>
+    <div class="card-body bg-light">
+        <div class="card-text">
+            Kind에서 SSH Username with private key를 선택해준다.
+        </div>
+    </div>
+</div>
+<div class="card mb-3">
+    <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem5.PNG"/>
+    <div class="card-body bg-light">
+        <div class="card-text">
+            Private Key, Enter directly를 선택해서 비공개키(개인키, 젠킨스서버의 비공개키, 이를테면 id_ed25519) 내용을 복사해 넣는다.
+            <br>
+            Add 버튼을 눌러 마친후, Credentials에서 방금 생성한 크레덴셜을 선택해준다.
+        </div>
+    </div>
+</div>
 
 <br>
 Branches to build : */main  
@@ -306,15 +370,28 @@ main은 브랜치명이므로 브랜치가 다르다면 변경한다.
 
 [git branch가 master가 아니라 main이 된 이유](https://dunchi.tistory.com/92)
 
-빌드 유발 : GitHub hook trigger for GITScm polling
-<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem6.PNG"/>
-
-빌드 후 조치 : Send build artifacts over SSH
-<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem7.PNG"/>
-<img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem8.PNG"/>
-실행할 쉘스크립트를 미리작성하여 해당 스크립트를 실행하게 할수도 있다.  
-간단한 명령어는 직접 입력해도 된다. 타켓 디렉토리가 없다면 생긴다.  
-이 과정에서 테스트에 실패한다면 서버반영 및 재시작이 일어나지 않아야 한다.  
+<div class="card mb-3">
+    <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem6.PNG"/>
+    <div class="card-body bg-light">
+        <div class="card-text">
+            빌드 유발 : GitHub hook trigger for GITScm polling
+        </div>
+    </div>
+</div>
+<div class="card mb-3">
+    <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem7.PNG"/>
+    <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem8.PNG"/>
+    <div class="card-body bg-light">
+        <div class="card-text">
+            빌드 후 조치 : Send build artifacts over SSH
+            <p>
+              실행할 쉘스크립트를 미리작성하여 해당 스크립트를 실행하게 할수도 있다.  
+              간단한 명령어는 직접 입력해도 된다. 타켓 디렉토리가 없다면 생긴다.  
+              이 과정에서 테스트에 실패한다면 서버반영 및 재시작이 일어나지 않아야 한다.  
+            </p>
+        </div>
+    </div>
+</div>
 
 
 ### 자동 재실행 설정
