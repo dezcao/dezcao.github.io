@@ -94,7 +94,7 @@ sudo cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
   <span>젠킨스 구동은 자바가 필요하다.(도커로 했다면 필요없다.)<span><br>
   <span>자바가 안깔려 있다면 자바도 깔아야 하고, 자바를 실행할 수 있게 시스템에 패스도 설정해야 한다.<span><br>
   <span>그래서 도커로 하면, 여러사람이 함께쓰는 서버 공간을 더럽히지 않으면서 관리하기 편해질 것이다.</span><br>
-  <span>하지만, 젠킨스 홈에서 제공한 명령어를 보면 이미 openjdk 자바를 같이 깔도록 안내하고 있다.</span><br>
+  <span>하지만, 젠킨스 홈에서 제공한 명령어를 보면 이미 openjdk 자바를 같이 깔도록 안내하고 있다.</span>
   <div class="alert alert-secondary" role="alert">
     <span>java -version</span><br>
     <span>javac -version</span>
