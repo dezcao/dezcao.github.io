@@ -97,26 +97,25 @@ sudo cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
 ```
 
 <div class="alert alert-info">
-    ### Java Path
-    젠킨스 구동은 자바가 필요하다.(도커로 했다면 필요없다.)  
-    자바가 안깔려 있다면 자바도 깔아야 하고, 자바를 실행할 수 있게 시스템에 패스도 설정해야 한다.  
-    그래서 도커로 하면, 여러사람이 함께쓰는 서버 공간을 더럽히지 않으면서 관리하기 편해질 것이다.  
-    하지만, 젠킨스 홈에서 제공한 명령어를 보면 이미 openjdk 자바를 같이 깔도록 안내하고 있다.
-    ```
+  <strong>Java Path<strong><br>
+  젠킨스 구동은 자바가 필요하다.(도커로 했다면 필요없다.)<br>
+  자바가 안깔려 있다면 자바도 깔아야 하고, 자바를 실행할 수 있게 시스템에 패스도 설정해야 한다.<br>
+  그래서 도커로 하면, 여러사람이 함께쓰는 서버 공간을 더럽히지 않으면서 관리하기 편해질 것이다.<br>
+  하지만, 젠킨스 홈에서 제공한 명령어를 보면 이미 openjdk 자바를 같이 깔도록 안내하고 있다.<br>
+  <div class="alert alert-secondary" role="alert">
     java -version
     javac -version
-    ```
-    확인해보니 잘 설치 되었다. 참고로, java가 어디있는지 찾고싶으면 whereis 명령어를 써본다.
-    ```
-    whereis java
-    whereis javac
-    ```
-    /usr/bin에 들어있는걸 알 수 있다.  
-    echo $PATH로 환경변수를 출력해 볼 수 있고, 파이프(|)로 결과물을 넘겨, grep으로 문자열을 찾아봤다.
-    ```
+  </div>
+  확인해보니 잘 설치 되었다. 참고로, java가 어디있는지 찾고싶으면 whereis 명령어를 써본다.
+  <div class="alert alert-secondary" role="alert">
+    whereis java<br>
+    whereis javac<br>
+  </div>
+  /usr/bin에 들어있는걸 알 수 있다.<br>
+  echo $PATH로 환경변수를 출력해 볼 수 있고, 파이프(|)로 결과물을 넘겨, grep으로 문자열을 찾아봤다.
+  <div class="alert alert-secondary" role="alert">
     echo $PATH | grep /usr/bin
-    ```
-    잘 들어있다.
+  </div>
 </div>
 
 
@@ -153,13 +152,16 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
     <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/unlock.PNG"/>
 </div>
 
-> #### 비밀번호는 왜 /var 그러니까 /var/lib에 있는걸까
-> [출처: https://jadehan.tistory.com/11](https://jadehan.tistory.com/11)  
-> /var 폴더는, 가변데이터 파일, 시스템 로그, 스풀링 파일, 메일 서버로 운영될 경우 메일 저장된다.  
-> 스풀링? 나중에 처리하거나 인쇄하기 위해 데이터를 저장하는 시스템 기능이란다.[출처](https://www.ibm.com/docs/ko/i/7.> 3?topic=queues-spooled-files)  
-> /var/lib 는 가변 상태 정보 데이터가 위치한다.  
-> /var 디렉토리는 /usr 디렉토리가 read-only로 마운트하도록 하는데,  
-> 시스템을 운영시 /usr 디렉토리에 작성된 모든 것들이 /var에 있어야 한다.
+<div class="alert alert-info" role="alert">
+  <strong>비밀번호는 왜 /var 그러니까 /var/lib에 있는걸까</strong>
+  /var 폴더는, 가변데이터 파일, 시스템 로그, 스풀링 파일, 메일 서버로 운영될 경우 메일 저장된다.  
+  스풀링? 나중에 처리하거나 인쇄하기 위해 데이터를 저장하는 시스템 기능.
+  /var/lib 는 가변 상태 정보 데이터가 위치한다.  
+  /var 디렉토리는 /usr 디렉토리가 read-only로 마운트하도록 하는데,  
+  시스템을 운영시 /usr 디렉토리에 작성된 모든 것들이 /var에 있어야 한다.
+</div>
+
+[출처: https://jadehan.tistory.com/11](https://jadehan.tistory.com/11)  
 
 <div class="card mb-3">
     <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/install_suggested.PNG"/>
@@ -196,19 +198,20 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 </div>
 
 ### Jenkins, Server, Git SSH setting
-> #### ssh
-> 젠킨스 설치 서버와 배포 서버가 다른 경우가 있고, 동일한 경우가 있을 것이다.  
-> ssh 통신방식을 알면 설정을 하면서 조금은 덜 막연해 지는것 같다.  
-> 내가 아는대로 설명해 보자면 기본적으로 다음과 같다.  
-> <br>
-> 
-> - ssh-keygen을 하게되면 공개키(.pub로 끝나는 키), 비밀키 두개가 생긴다.
-> - 공개키는 나눠주고, 비밀키는 생성한 머신(PC)가 혼자서 꽁꽁 잘 보관해 둔다.
-> - 통신을 할일이 생기면, 공개키를 가지고 있는 서버는 암호화 통신을 위한 임시키(공유키)를 생성한다.
-> - 공개키로 임시키를 암호화하여 보낸다.
-> - 비밀키를 가지고 있는 서버는 공개키로 암호화된 전문을 복호화 할 수 있고, 그 안에서 임시키를 얻을 수 있게된다.
-> - 이제, 임시키를 이용해 두 서버가 통신을 하고, 통신이 끝나면 임시키는 파괴된다.
-> <br>
+<div class="alert alert-info" role="alert">
+  <strong>ssh</strong><br>
+  젠킨스 설치 서버와 배포 서버가 다른 경우가 있고, 동일한 경우가 있을 것이다.<br>
+  ssh 통신방식을 알면 설정을 하면서 조금은 덜 막연해 지는것 같다.<br>
+  내가 아는대로 설명해 보자면 기본적으로 다음과 같다.<br>
+  <ul>
+    <li>ssh-keygen을 하게되면 공개키(.pub로 끝나는 키), 비밀키 두개가 생긴다.</li>
+    <li>공개키는 나눠주고, 비밀키는 생성한 머신(PC)가 혼자서 꽁꽁 잘 보관해 둔다.</li>
+    <li>통신을 할일이 생기면, 공개키를 가지고 있는 서버는 암호화 통신을 위한 임시키(공유키)를 생성한다.</li>
+    <li>공개키로 임시키를 암호화하여 보낸다.</li>
+    <li>비밀키를 가지고 있는 서버는 공개키로 암호화된 전문을 복호화 할 수 있고, 그 안에서 임시키를 얻을 수 있게된다.</li>
+    <li>이제, 임시키를 이용해 두 서버가 통신을 하고, 통신이 끝나면 임시키는 파괴된다.</li>
+  </ul>
+</div>
 
 배포서버와 젠킨스 서버가 다를때, 배포될 서버에 젠킨스의 SSH 공개키를 등록한다.  
 공개키 등록은 authorized_keys 파일 내용으로 추가하면 된다.  
@@ -234,45 +237,44 @@ ls -l .ssh/authorized_keys
 ```
 <br>
 
-> #### 왜 자꾸 권한을 변경해줘야 하는걸까?
-> 파일, 폴더를 생성하면 모든 권한이 주어져 있지 않다.  
-> 
-> ##### chmod, chown ?
-> - chown 파일이나 디렉토리의 소유주를 바꾸는 명령.
-> - chmod 파일이나 디렉토리의 권한을 바꾸는 명령.
-> 
-> 권한과 소유권을 보는 명령어
-> ```
-> ls -l
-> ```
-> 
-> 파일의 권한 표시 옵션인 -l을 줘서 ls -l을 하면,  
-> 맨 앞자리는 파일과 디렉토리를 구분하고(- 파일, d 디렉토리),  
-> 이후부터 rwx는 읽기, 쓰기, 실행(혹은 폴더 들어가기 권한), 권한이 없으면 -(대쉬)로 표현된다.
-> <br>
-> 첫 세자리는 유저, 두번째 세자리는 그룹, 세번째 rwx자리는 다른 사용자의 권한을 의미한다.
-> <br>
-> rwx는 숫자 421로도 대변된다(8진수). 따라서 7은 모든 권한, 6(4+2)은 읽기와 쓰기, 5(4+1)은 읽기와 실행 같은 > 의미이다.  
-> 즉, +rw는 +6으로도 표시할 수 있지만 그냥 rwx등 직관적으로 쓰는것과 차이는 없다.  
-> 700이면, 사용자는 모든권한(rwx), 그룹과 다른 사용자는 아무런 권한도 없는것이 된다.  
-> <br>
-> 
-> [linux umask 제타위키](https://zetawiki.com/wiki/%EB%A6%AC%EB%88%85%EC%8A%A4_umask)  
-> umask - 새 폴더, 파일의 퍼미션(권한)을 결정하는 값, 또는 설정 명령어이다. 디폴트 0022.  
-> umask의 값은 Shell에 의존적이어서 각 Shell에 따라 0022(sh), 022(ksh), 22(csh), 022(ksh)으로 기본 값으로 정해져 > 있다.  
-> 0022라고 나오면 맨 앞에 부분은 없는 것이라고 생각하고 3자리만 기억하면 된다.  
-> <br>
-> umask 값과 새 폴더 퍼미션 값을 더하면 777이 된다. (예: 022 + 755 = 777)  
-> 파일의 경우 실행권한은 모두 빠진다.  
-> 즉, umask 022인 경우의 생성되는 권한은 아래와 같다.
-> ```
-> 새 폴더: 755
-> 새 파일: 644
-> ```
-> 그래서 파일을 생성한 뒤에 다른 유저들도 해당 파일을 실행할 수 있도록 권한을 추가해 주는 것이다.  
-> 
-> [출처 : umask 추가설명](https://securityspecialist.tistory.com/40)
-> <br>
+<div class="alert alert-info" role="alert">
+  <strong>왜 자꾸 권한을 변경해줘야 하는걸까?</strong><br>
+  파일, 폴더를 생성하면 모든 권한이 주어져 있지 않다.
+  <strong>chmod, chown ?</strong><br>
+  <ul>
+    <li>chown 파일이나 디렉토리의 소유주를 바꾸는 명령.</li>
+    <li>chmod 파일이나 디렉토리의 권한을 바꾸는 명령.</li>
+  </ul>
+  <div class="alert alert-secondary" role="alert">
+    # 권한과 소유권을 보는 명령어<br>
+    ls -l
+  </div>
+  파일의 권한 표시 옵션인 -l을 줘서 ls -l을 하면,<br>
+  맨 앞자리는 파일과 디렉토리를 구분하고(- 파일, d 디렉토리),<br>
+  이후부터 rwx는 읽기, 쓰기, 실행(혹은 폴더 들어가기 권한), 권한이 없으면 -(대쉬)로 표현된다.<br>
+  <p>
+  첫 세자리는 유저, 두번째 세자리는 그룹, 세번째 rwx자리는 다른 사용자의 권한을 의미한다.
+  </p>
+  rwx는 숫자 421로도 대변된다(8진수). 따라서 7은 모든 권한, 6(4+2)은 읽기와 쓰기, 5(4+1)은 읽기와 실행 같은 > 의미이다.<br>
+  즉, +rw는 +6으로도 표시할 수 있지만 그냥 rwx등 직관적으로 쓰는것과 차이는 없다.<br>
+  700이면, 사용자는 모든권한(rwx), 그룹과 다른 사용자는 아무런 권한도 없는것이 된다.<br>
+  <p>
+  umask - 새 폴더, 파일의 퍼미션(권한)을 결정하는 값, 또는 설정 명령어이다. 디폴트 0022.<br>
+  umask의 값은 Shell에 의존적이어서 각 Shell에 따라 0022(sh), 022(ksh), 22(csh), 022(ksh)으로 기본 값으로 정해져 > 있다.<br>
+  0022라고 나오면 맨 앞에 부분은 없는 것이라고 생각하고 3자리만 기억하면 된다.  
+  </p>
+  umask 값과 새 폴더 퍼미션 값을 더하면 777이 된다. (예: 022 + 755 = 777)<br>
+  파일의 경우 실행권한은 모두 빠진다.
+  <div class="alert alert-secondary" role="alert">
+    # umask 022인 경우의 생성되는 권한은 아래와 같다.<br>
+    새 폴더: 755<br>
+    새 파일: 644<br>
+  </div>
+  그래서 파일을 생성한 뒤에 다른 유저들도 해당 파일을 실행할 수 있도록 권한을 추가해 주는 것이다.  
+</div>
+
+[linux umask 제타위키](https://zetawiki.com/wiki/%EB%A6%AC%EB%88%85%EC%8A%A4_umask)  
+[출처 : umask 추가설명](https://securityspecialist.tistory.com/40)
 
 
 ### Github Webhook
@@ -421,18 +423,25 @@ sudo systemctl start jenkins
 exit 0
 ```
 
-
-> ### 리눅스 부팅순서
-> 
-> - 전원 ON
-> - ROM-BIOS
-> - 부트로더- GRUB(Erich Stefan Boleny가 개발한 부트로더, /boot 폴더에 들어있음.)
-> - 스와퍼 프로세스
-> - init 프로세스. /sbin/init 프로세스가 실행. /etc/inittab의 설정에 따라 초기화를 시작한다.
-> - 부트레벨 결정
-> - /etc/rc.d/rc.sysinit 스크립트 실행. 네트워크, 파일시스템 점검, 커널 로딩 등.
-> - /etc/rc.d/rc[0-6].d 디렉토리의 스크립트들이 실행. 링크파일들로 /etc/rc.d/init.d/디렉토리파일과 링크임. 각 > 디렉토리 마지막에 /etc/rc.d/rc.local 파일이 실행되는 링크가 있음. rc.sysinit 에 의해 호출된다. 부팅시 수행하고 싶은 > 명령의 모음이다.
-> - /etc/rc.d/rc.local 스크립트 실행 
-> - X윈도우 실행(부팅완료)
-
-
+<div class="alert alert-info" role="alert">
+  <strong>리눅스 부팅순서</strong><br>
+  <ul>
+    <li>전원 ON</li>
+    <li>ROM-BIOS</li>
+    <li>부트로더- GRUB(Erich Stefan Boleny가 개발한 부트로더, /boot 폴더에 들어있음.)</li>
+    <li>스와퍼 프로세스</li>
+    <li>init 프로세스. /sbin/init 프로세스가 실행. /etc/inittab의 설정에 따라 초기화를 시작한다.</li>
+    <li>부트레벨 결정</li>
+    <li>/etc/rc.d/rc.sysinit 스크립트 실행. 네트워크, 파일시스템 점검, 커널 로딩 등.</li>
+    <li>/etc/rc.d/rc[0-6].d 디렉토리의 스크립트들이 실행.
+      <ul>
+        <li>부팅시 수행하고 싶은 명령의 모음이다.</li>
+        <li>링크파일들로 /etc/rc.d/init.d/디렉토리파일과 링크임.</li>
+        <li>디렉토리 마지막에 <strong>/etc/rc.d/rc.local</strong> 파일이 실행되는 링크가 있음.</li>
+        <li>rc.sysinit 에 의해 호출된다.</li>
+      <ul>
+    </li>
+    <li>/etc/rc.d/rc.local 스크립트 실행 </li>
+    <li>X윈도우 실행(부팅완료) </li>
+  </ul>
+</div>
