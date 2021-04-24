@@ -124,9 +124,11 @@ sudo cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
 sudo vi /etc/sysconfig/jenkins
 # 파일에서 JENKINS_PORT="9090" 부분을 찾아서 바꿔준다.
 ```
-> 그런데, 왜 바꿀까?  
-> 많은 어플들이 자동으로 제너레이트 되면, 서버를 올릴때 8080을 많이 물고 올라간다. (Node, Vue 등)  
-> 그래서 양보하는 모양이다. 젠킨스는 관용적으로 9090을 많이 쓴단다.  
+<div class="alert alert-info">
+  <strong>그런데, 왜 바꿀까?<strong><br>
+  많은 어플들이 자동으로 제너레이트 되면, 서버를 올릴때 8080을 많이 물고 올라간다. (Node, Vue 등)<br>
+  그래서 양보하는 모양이다. 젠킨스는 관용적으로 9090을 많이 쓴단다.
+</div>
 
 ### Start, Status Jenkins 명령어
 ```
