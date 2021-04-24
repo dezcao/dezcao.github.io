@@ -16,13 +16,15 @@ CentOS, Ubuntu에 젠킨스 설치 및 깃헙 소스가 갱신되면 자동반�
 리눅스 고자에, 실무에서 사용해 본적도 없다.  
 인터넷을 뒤지고 다니면서 해보는 나로써는 솔직히 이정도도 쉽지만은 않은 일이었다.  
 <br>
-'세팅' 이라는 것은 지능이나 논리, 창의력이 필요치 않다.  
+하지만 '세팅' 이라는 것은 지능이나 논리, 창의력이 필요치 않다.  
 그저 잘 갖추어진 메뉴얼만 있으면 당연히 되어야 하는 것이다.  
-개발자로 갖춰야 할것도 많은데, 세팅해보는데 시간을 허비하는게 맞는건가 싶을때는 약간 슬프다.  
+개발자로 갖춰야 할것도 많은데, 메뉴얼이 없어서 세팅해보는데 시간을 허비하는게 맞는건가 싶을때는 약간 슬프다.  
+<br>
 나의 눈높이와 필요에 맞춰, 자세히 적으려 하다보니 중간중간 설명에 사족이 많아졌다.
 
 ### Jenkins download and install
-아래 명령어를 복사하기 전에 설치와 관련하여 변한건 없는지 공식 사이트를 확인하자.
+아래 명령어를 복사하기 전에 설치와 관련하여 변한건 없는지 공식 사이트를 확인하자.  
+
 [Jenkins 공홈의 CentOS install 파트](https://www.jenkins.io/doc/book/installing/linux/#red-hat-centos)
 ```
 sudo wget -O /etc/yum.repos.d/jenkins.repo \
@@ -32,6 +34,7 @@ sudo yum upgrade
 sudo yum install jenkins java-1.8.0-openjdk-devel
 sudo systemctl daemon-reload
 ```
+
 [Debian/ubuntu](https://www.jenkins.io/doc/book/installing/linux/#debianubuntu)
 ```
 wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
@@ -74,27 +77,24 @@ docker version
 ```
 [curl -fsSL example.org 설명](https://explainshell.com/explain?cmd=curl+-fsSL+example.org)
 
+
 #### Docker jenkins download
 [도커허브](https://hub.docker.com/r/jenkins/jenkins)
 ```
 sudo docker pull jenkins/jenkins:lts
 ```
 
+
 #### Start docker jenkins background
 ```
 sudo docker run -d --name my-jenkins -p 9090:9090 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
 ```
 
+
 #### Docker jenkins 초기 password
 ```
 sudo cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
 ```
-<div class="alert alert-info">
-    A simple info alert!
-</div>
-
-And this is a more sophisticated example, using the JS to include a carousel of images:
-
 
 <div class="alert alert-info">
   <strong>Java Path<strong><br>
@@ -117,7 +117,7 @@ And this is a more sophisticated example, using the JS to include a carousel of 
     echo $PATH | grep /usr/bin
   </div>
 </div>
-
+ 
 
 ### Port 변경하기
 ```
