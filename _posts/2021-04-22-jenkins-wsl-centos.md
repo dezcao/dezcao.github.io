@@ -16,9 +16,6 @@ CentOS, Ubuntu에 젠킨스 설치 및 깃헙 소스가 갱신되면 자동반�
 리눅스 고자에, 실무에서 사용해 본적도 없다.  
 인터넷을 뒤지고 다니면서 해보는 나로써는 솔직히 이정도도 쉽지만은 않은 일이었다.  
 <br>
-'세팅' 이라는 것은 지능이나 논리, 창의력이 필요치 않다.  
-그저 잘 갖추어진 메뉴얼만 있으면 당연히 되어야 하는 것이다.  
-개발자로 갖춰야 할것도 많은데, 세팅해보는데 시간을 허비하는게 맞는건가 싶을때는 약간 슬프다.  
 나의 눈높이와 필요에 맞춰, 자세히 적으려 하다보니 중간중간 설명에 사족이 많아졌다.
 
 ### Jenkins download and install
@@ -90,7 +87,7 @@ sudo docker run -d --name my-jenkins -p 9090:9090 -p 50000:50000 -v jenkins_home
 sudo cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
 ```
 
-<div class="alert alert-secondary">
+<div class="alert alert-info">
   <h4>Java Path</h4>
   <span>젠킨스 구동은 자바가 필요하다.(도커로 했다면 필요없다.)</span><br>
   <div class="alert alert-secondary" role="alert">
@@ -116,12 +113,13 @@ sudo cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
 ```
 # jenkins config 열기 (도커일땐 위에서 이미 9090으로 열었다.)
 sudo vi /etc/sysconfig/jenkins
+
 # 파일에서 JENKINS_PORT="9090" 부분을 찾아서 바꿔준다.
 ```
 
 <div class="alert alert-info">
   <h4>그런데, 왜 바꿀까?</h4><br>
-  많은 어플들이 자동으로 제너레이트 되면, 서버를 올릴때 8080을 많이 물고 올라간다. (Node, Vue 등)<br>
+  많은 어플이 자동 제너레이트 되면, 8080을 많이 물고 올라간다. (Node, Vue 등)<br>
   그래서 양보하는 모양이다. 젠킨스는 관용적으로 9090을 많이 쓴단다.
 </div>
 
@@ -146,7 +144,7 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 </div>
 
 <div class="alert alert-info" role="alert">
-  <strong>비밀번호는 왜 /var 그러니까 /var/lib에 있는걸까</strong>
+  <strong>비밀번호는 왜 /var 그러니까 /var/lib에 있는걸까</strong><br>
   /var 폴더는, 가변데이터 파일, 시스템 로그, 스풀링 파일, 메일 서버로 운영될 경우 메일 저장된다.<br>
   스풀링? 나중에 처리하거나 인쇄하기 위해 데이터를 저장하는 시스템 기능.<br>
   /var/lib 는 가변 상태 정보 데이터가 위치한다.  <br>
@@ -196,7 +194,7 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
   <strong>ssh</strong><br>
   젠킨스 설치 서버와 배포 서버가 다른 경우가 있고, 동일한 경우가 있을 것이다.<br>
   ssh 통신방식을 알면 설정을 하면서 조금은 덜 막연해 지는것 같다.<br>
-  내가 아는대로 설명해 보자면 기본적으로 다음과 같다.<br>
+  내가 아는대로 설명해 보자면 기본적으로 다음과 같다.<br><br>
   <ul>
     <li>ssh-keygen을 하게되면 공개키(.pub로 끝나는 키), 비밀키 두개가 생긴다.</li>
     <li>공개키는 나눠주고, 비밀키는 생성한 머신(PC)가 혼자서 꽁꽁 잘 보관해 둔다.</li>
