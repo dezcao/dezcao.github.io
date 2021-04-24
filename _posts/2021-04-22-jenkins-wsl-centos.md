@@ -7,16 +7,25 @@ tags:
   - github
 ---
 
-CentOS에 젠킨스를 설치하고 깃헙에 소스가 갱신되면 자동 반영한다.
+CentOS, Ubuntu 젠킨스를 설치 및 깃헙 소스가 갱신되면 자동 반영해보기.
 
 <!--more-->
 
-AWS에서 우분투 위에 도커를 설치하고, 도커로 젠킨스를 설치하면 쉽고 제거도 깔끔해서 좋았다.  
-하지만, WSL에 리눅스로 CentOS를 설치했는데 도커가 제대로 실행되지 않았다.  
-WSL에서 돌려서 그런건지 CentOS 문제인지 모르겠지만 젠킨스를 그냥 설치하기로 했다.  
+테스트 코드 없이, 단순 반영하는 방법은 앙꼬없는 찐빵이라고 한다.  
+아직 테스트 코드를 실행하고 성공과 실패에 따라서 반영할지 말지를 결정하는 부분은 숙제다.  
+리눅스 고자에, 실무에서도 배워보지 못한걸 인터넷 뒤져가며 해보는 나로써는 솔직히 이정도도 쉽지만은 않은 일이었다.  
+<br>
+하지만 '세팅' 이라는 것은 지능이나 논리, 창의력 같은 자산이 필요없다.  
+그저 잘 갖추어진 메뉴얼만 있으면 당연히 되는것이라고 생각하기 때문에,  
+누군가 이 글을 본다면 최소한 이 안에 있는것 만큼은 이면의 내용들을 알든 모르든  
+무조건 성공할 수 있는 메뉴얼이 되었으면 한다.  
+<br>
+어차피 이걸 읽고 있는 사람들은 다 개발자일테니 본문에 불필요한 사족이 많다고 느낄 수 있다.  
+나의 눈높이와 필요에 맞춰 최대한 자세히 적으려 하다보니 그렇게 되었음을 양해 바란다.
 
 ### Jenkins download and install
-명령어를 복사하기 전에 설치와 관련하여 변한건 없는지 사이트를 확인하자.  
+아래 명령어를 복사하기 전에 설치와 관련하여 변한건 없는지 공식 사이트를 확인하자.  
+
 [Jenkins 공홈의 CentOS install 파트](https://www.jenkins.io/doc/book/installing/linux/#red-hat-centos)
 ```
 sudo wget -O /etc/yum.repos.d/jenkins.repo \
@@ -27,11 +36,68 @@ sudo yum install jenkins java-1.8.0-openjdk-devel
 sudo systemctl daemon-reload
 ```
 
+[Debian/ubuntu](https://www.jenkins.io/doc/book/installing/linux/#debianubuntu)
+```
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
+    /etc/apt/sources.list.d/jenkins.list'
+sudo apt-get update
+sudo apt-get install jenkins
+```
+
+만약 도커 안에서 젠킨스를 설치하고 싶다면 다음 과정을 따른다.
+### Ubuntu Docker Jenkins setup
+```
+sudo apt-get update
+
+# 필요한 라이브러리들 받는다.
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+
+# curl은 데이터를 전송하기 위한 라이브러리와 명령 줄 도구를 제공하는 컴퓨터 소프트웨어
+# -f : 실패해도 보여주지 마라, -s 진행상황 보여주지마라, -S 에러를 보여줘라, -L 리다이렉트되면 보여줘라.
+# apt-key는 apt가 패키지를 인증하는데 사용하는 키 리스트를 관리하는데 사용되는 유틸
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+# 레파지토리를 등록해준다.
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+sudo apt-get update
+
+# 드디어, 등록한 레파지토리를 통해 도커 형제들을 받는다.
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+# 도커가 설치 되었는지 확인.
+docker version
+```
+[curl -fsSL example.org 설명](https://explainshell.com/explain?cmd=curl+-fsSL+example.org)
+
+#### docker jenkins download [도커허브](https://hub.docker.com/r/jenkins/jenkins)
+```
+sudo docker pull jenkins/jenkins:lts
+```
+
+#### start docker jenkins background
+```
+sudo docker run -d --name my-jenkins -p 9090:9090 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
+```
+
+#### docker jenkins 초기 password
+```
+sudo cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
+```
 
 ### Java Path
-젠킨스는 자바가 필요하다.  
-자바가 안깔려 있다면 자바도 깔아야 하고, 패스를 설정해야 한다.  
-그래서 도커로 하면 편한데... 위 명령어는 이미 openjdk 자바를 같이 깔도록 하고 있다. 땡큐 하구먼.
+젠킨스 구동은 자바가 필요하다.  
+자바가 안깔려 있다면 자바도 깔아야 하고, 자바를 실행할 수 있게 시스템에 패스도 설정해야 한다.  
+그래서 도커로 하면, 여러사람이 함께쓰는 서버 공간을 더럽히지 않으면서 관리하기 편해질 것이다.
+하지만, 젠킨스 홈에서 제공한 명령어를 보면 이미 openjdk 자바를 같이 깔도록 안내하고 있다.
 ```
 java -version
 javac -version
@@ -49,17 +115,15 @@ echo $PATH | grep /usr/bin
 잘 들어있다.
 
 
-### Port 변경하기
+### Port 변경하기 (일반설치시)
 ```
-dezcao 
-/ 1111
 # jenkins config 열기
 sudo vi /etc/sysconfig/jenkins
 ```
-왜 바꿀까?  
+그런데, 왜 바꿀까?  
 많은 어플들이 자동으로 제너레이트 되면, 서버를 올릴때 8080을 많이 물고 올라간다. (Node, Vue 등)  
 그래서 양보하는 모양이다. 젠킨스는 관용적으로 9090을 많이 쓴단다.  
-JENKINS_PORT="9090"
+파일에서 <strong>JENKINS_PORT="9090"<strong> 부분을 찾아서 바꿔준다.
 
 
 ### Start, Status Jenkins 명령어
@@ -70,8 +134,13 @@ sudo systemctl status jenkins
 
 
 ### 접속하기
-브라우저에서 젠킨스 페이지(http://${ip}:9090) 로딩 이후, 초기 비번을 물어본다.  
-#### 초기 비밀번호 복사해오기
+브라우저에서 젠킨스 페이지(http://젠킨스서버IP:9090) 진입을 해보면, 초기 비번을 물어본다.  
+AWS 같은 클라우드 서비스를 사용한다면 젠킨스 페이지를 접근 하기위한 포트를 열어주는걸 잊지 말자.  
+이후부터는, 젠킨스에 이런저런 세팅을 하는것 이므로 동일하다.  
+
+<br>
+
+#### 일반 jenkins 초기 password 복사
 ```
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
@@ -83,8 +152,6 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 사용할 계정생성까지 해서 젠킨스 관리페이지로 로그인 해준다.  
 <img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/create_admin.PNG"/>
 
-AWS 같은 클라우드에서 사용한다면 젠킨스 페이지를 접근 하기위한 포트를 열어주는걸 잊지 말자.  
-
 
 #### 비밀번호는 왜 /var 그러니까 /var/lib에 있는걸까
 [출처: https://jadehan.tistory.com/11](https://jadehan.tistory.com/11)  
@@ -95,13 +162,14 @@ AWS 같은 클라우드에서 사용한다면 젠킨스 페이지를 접근 하�
 
 
 ### Github 연동
-젠킨스가 깃과 소통하기 위한 라이러리 추가 설치한다.
-
-<b>Jenkins 관리 < 플러그인 관리 < 설치 가능 탭<b>
-
-github integration을 설치한다.
-publish over ssh를 설치한다.
+젠킨스가 깃과 소통하기 위한 라이러리 추가 설치한다.  
+<strong>Jenkins 관리 < 플러그인 관리 < 설치 가능 탭<strong>  
+<ul>
+  <li>github integration을 설치한다.
+  <li>publish over ssh를 설치한다.
+</ul>
 <img src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/github_integration.PNG"/>
+
 
 
 깃허브와 ssh 통신을 위한 키 등록하기 (private repository인 경우 해야만 연동됨.)  
