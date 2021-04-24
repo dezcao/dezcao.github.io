@@ -89,7 +89,13 @@ sudo docker run -d --name my-jenkins -p 9090:9090 -p 50000:50000 -v jenkins_home
 ```
 sudo cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
 ```
-<div class="alert alert-info">
+
+
+> aaaa
+> a eee
+
+
+<div class="alert alert-secondary">
   <h4>Java Path</h4>
   <span>젠킨스 구동은 자바가 필요하다.(도커로 했다면 필요없다.)<span><br>
   <span>자바가 안깔려 있다면 자바도 깔아야 하고, 자바를 실행할 수 있게 시스템에 패스도 설정해야 한다.<span><br>
