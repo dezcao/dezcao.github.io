@@ -118,7 +118,6 @@ sudo cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
   </div>
 </div>
 
-
 ### Port 변경하기
 ```
 # jenkins config 열기 (도커일땐 위에서 이미 9090으로 열었다.)
@@ -129,7 +128,6 @@ sudo vi /etc/sysconfig/jenkins
 > 많은 어플들이 자동으로 제너레이트 되면, 서버를 올릴때 8080을 많이 물고 올라간다. (Node, Vue 등)  
 > 그래서 양보하는 모양이다. 젠킨스는 관용적으로 9090을 많이 쓴단다.  
 
-
 ### Start, Status Jenkins 명령어
 ```
 sudo systemctl start jenkins
@@ -137,12 +135,10 @@ sudo systemctl enable jenkins
 sudo systemctl status jenkins
 ```
 
-
 ### 접속하기
 브라우저에서 젠킨스 페이지(http://젠킨스서버IP:9090) 진입을 해보면, 초기 비번을 물어본다.  
 AWS 같은 클라우드 서비스를 사용한다면 포트 열어주는걸 잊지 말자.  
 이후부터는, 젠킨스에 이런저런 세팅을 하는것 이므로 모두 동일하다.
-<br>
 
 #### 일반 jenkins 초기 password 복사
 ```
@@ -235,7 +231,6 @@ chmod 544 ~/.ssh/authorized_keys
 # 권한을 확인해 본다.
 ls -l .ssh/authorized_keys
 ```
-<br>
 
 <div class="alert alert-info" role="alert">
   <strong>왜 자꾸 권한을 변경해줘야 하는걸까?</strong><br>
@@ -275,7 +270,6 @@ ls -l .ssh/authorized_keys
 
 [linux umask 제타위키](https://zetawiki.com/wiki/%EB%A6%AC%EB%88%85%EC%8A%A4_umask)  
 [출처 : umask 추가설명](https://securityspecialist.tistory.com/40)
-
 
 ### Github Webhook
 #### 사용자 아이디 클릭 < 설정 < API Token, Add new Token, Generate token
