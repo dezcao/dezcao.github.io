@@ -90,39 +90,26 @@ sudo docker run -d --name my-jenkins -p 9090:9090 -p 50000:50000 -v jenkins_home
 sudo cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
 ```
 <div class="alert alert-info">
-  <h3>Java Path</h3>
-  <p>젠킨스 구동은 자바가 필요하다.(도커로 했다면 필요없다.)</p>
-  <p>자바가 안깔려 있다면 자바도 깔아야 하고, 자바를 실행할 수 있게 시스템에 패스도 설정해야 한다.</p>
-</div>
-
-<div class="alert alert-info">
-  <strong>Java Path<strong><br>
-  젠킨스 구동은 자바가 필요하다.(도커로 했다면 필요없다.)<br>
-  자바가 안깔려 있다면 자바도 깔아야 하고, 자바를 실행할 수 있게 시스템에 패스도 설정해야 한다.<br>
-</div>
-
-<div class="alert alert-info">
-  <strong>Java Path<strong><br>
-  젠킨스 구동은 자바가 필요하다.(도커로 했다면 필요없다.)<br>
-  자바가 안깔려 있다면 자바도 깔아야 하고, 자바를 실행할 수 있게 시스템에 패스도 설정해야 한다.<br>
-  그래서 도커로 하면, 여러사람이 함께쓰는 서버 공간을 더럽히지 않으면서 관리하기 편해질 것이다.<br>
-  하지만, 젠킨스 홈에서 제공한 명령어를 보면 이미 openjdk 자바를 같이 깔도록 안내하고 있다.<br>
+  <h4>Java Path</h4>
+  <span>젠킨스 구동은 자바가 필요하다.(도커로 했다면 필요없다.)<span><br>
+  <span>자바가 안깔려 있다면 자바도 깔아야 하고, 자바를 실행할 수 있게 시스템에 패스도 설정해야 한다.<span><br>
+  <span>그래서 도커로 하면, 여러사람이 함께쓰는 서버 공간을 더럽히지 않으면서 관리하기 편해질 것이다.</span><br>
+  <span>하지만, 젠킨스 홈에서 제공한 명령어를 보면 이미 openjdk 자바를 같이 깔도록 안내하고 있다.</span><br>
   <div class="alert alert-secondary" role="alert">
-    java -version
-    javac -version
+    <span>java -version</span><br>
+    <span>javac -version</span>
   </div>
-  확인해보니 잘 설치 되었다. 참고로, java가 어디있는지 찾고싶으면 whereis 명령어를 써본다.
+  <span>확인해보니 잘 설치 되었다. 참고로, java가 어디있는지 찾고싶으면 whereis 명령어를 써본다.</span>
   <div class="alert alert-secondary" role="alert">
-    whereis java<br>
-    whereis javac<br>
+    <span>whereis java</span><br>
+    <span>whereis javac</span>
   </div>
-  /usr/bin에 들어있는걸 알 수 있다.<br>
-  echo $PATH로 환경변수를 출력해 볼 수 있고, 파이프(|)로 결과물을 넘겨, grep으로 문자열을 찾아봤다.
+  <span>/usr/bin에 들어있는걸 알 수 있다.</span><br>
+  <span>echo $PATH로 환경변수를 출력해 볼 수 있고, 파이프(|)로 결과물을 넘겨, grep으로 문자열을 찾아봤다.</span>
   <div class="alert alert-secondary" role="alert">
     echo $PATH | grep /usr/bin
   </div>
 </div>
-
 
 ### Port 변경하기
 ```
@@ -132,7 +119,7 @@ sudo vi /etc/sysconfig/jenkins
 ```
 
 <div class="alert alert-info">
-  <strong>그런데, 왜 바꿀까?<strong><br>
+  <h4>그런데, 왜 바꿀까?</h4><br>
   많은 어플들이 자동으로 제너레이트 되면, 서버를 올릴때 8080을 많이 물고 올라간다. (Node, Vue 등)<br>
   그래서 양보하는 모양이다. 젠킨스는 관용적으로 9090을 많이 쓴단다.
 </div>
@@ -159,10 +146,10 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
 <div class="alert alert-info" role="alert">
   <strong>비밀번호는 왜 /var 그러니까 /var/lib에 있는걸까</strong>
-  /var 폴더는, 가변데이터 파일, 시스템 로그, 스풀링 파일, 메일 서버로 운영될 경우 메일 저장된다.  
-  스풀링? 나중에 처리하거나 인쇄하기 위해 데이터를 저장하는 시스템 기능.
-  /var/lib 는 가변 상태 정보 데이터가 위치한다.  
-  /var 디렉토리는 /usr 디렉토리가 read-only로 마운트하도록 하는데,  
+  /var 폴더는, 가변데이터 파일, 시스템 로그, 스풀링 파일, 메일 서버로 운영될 경우 메일 저장된다.<br>
+  스풀링? 나중에 처리하거나 인쇄하기 위해 데이터를 저장하는 시스템 기능.<br>
+  /var/lib 는 가변 상태 정보 데이터가 위치한다.  <br>
+  /var 디렉토리는 /usr 디렉토리가 read-only로 마운트하도록 하는데,  <br>
   시스템을 운영시 /usr 디렉토리에 작성된 모든 것들이 /var에 있어야 한다.
 </div>
 
