@@ -117,6 +117,7 @@ sudo cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
     echo $PATH | grep /usr/bin
   </div>
 </div>
+ 
 
 ### Port 변경하기
 ```
@@ -124,6 +125,7 @@ sudo cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
 sudo vi /etc/sysconfig/jenkins
 # 파일에서 JENKINS_PORT="9090" 부분을 찾아서 바꿔준다.
 ```
+
 <div class="alert alert-info">
   <strong>그런데, 왜 바꿀까?<strong><br>
   많은 어플들이 자동으로 제너레이트 되면, 서버를 올릴때 8080을 많이 물고 올라간다. (Node, Vue 등)<br>
@@ -196,6 +198,7 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 </div>
 
 ### Jenkins, Server, Git SSH setting
+
 <div class="alert alert-info" role="alert">
   <strong>ssh</strong><br>
   젠킨스 설치 서버와 배포 서버가 다른 경우가 있고, 동일한 경우가 있을 것이다.<br>
@@ -274,7 +277,9 @@ ls -l .ssh/authorized_keys
 [출처 : umask 추가설명](https://securityspecialist.tistory.com/40)
 
 ### Github Webhook
+
 #### 사용자 아이디 클릭 < 설정 < API Token, Add new Token, Generate token
+
 <div class="card mb-3">
     <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/webhook1.PNG"/>
     <div class="card-body bg-light">
@@ -285,6 +290,7 @@ ls -l .ssh/authorized_keys
 </div>
 
 #### Github/project < Settings < Webhooks < Add webhook
+
 <div class="card mb-3">
     <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/webhook2.PNG"/>
     <div class="card-body bg-light">
@@ -299,6 +305,7 @@ URL 입력시, 젠킨스의 포트도 잊지말고 써준다. EC2라면 공개�
 http://젠킨스서버IP:9090/github-webhook/
 
 #### Secret
+
 <div class="card mb-3">
     <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/webhook3.PNG"/>
     <div class="card-body bg-light">
@@ -310,7 +317,9 @@ http://젠킨스서버IP:9090/github-webhook/
 </div>
 
 ### Jenkins, Publish over SSH
+
 **Jenkins 관리 > 시스템 설정 > Publish Over SSH**
+
 <div class="card mb-3">
     <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/ssh_servers.PNG"/>
     <div class="card-body bg-light">
@@ -326,6 +335,7 @@ http://젠킨스서버IP:9090/github-webhook/
 - Remote Directory - /home/ubuntu (서버 사용자의 기본 접속폴더, 서버에 접속직후 pwd로 확인.)
 
 ### Jenkins, New Item, 소스 코드 관리 설정
+
 <div class="card mb-3">
     <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-04-22/jenkins/newItem.PNG"/>
 </div>
