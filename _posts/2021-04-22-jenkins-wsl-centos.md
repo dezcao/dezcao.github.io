@@ -3,8 +3,10 @@ title: 젠킨스 + 깃헙 소스 자동배포
 tags:
   - Jenkins
   - CentOS
-  - WSL
+  - Ubuntu
+  - Docker
   - github
+  - CI
 ---
 
 CentOS, Ubuntu에 젠킨스 설치 및 깃헙 소스가 갱신되면 자동반영 설정 해보기.
