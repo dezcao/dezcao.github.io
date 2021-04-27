@@ -10,7 +10,7 @@ title: Jeffrey
 {% include components/intro.md %}
 
 ## Contact
-dezcao@gmail.com
+<a href="mailto:dezcao@gmail.com">Email Me</a>
 
 <hr />
 
