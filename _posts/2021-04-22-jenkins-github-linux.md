@@ -85,7 +85,7 @@ sudo cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
 ```
 
 <div class="alert alert-info">
-  <h4>Java Path</h4>
+  <strong>Java Path</strong>
   <span>젠킨스 구동은 자바가 필요하다.(도커로 했다면 필요없다.)</span><br>
   <div class="alert alert-secondary" role="alert">
     <span>java -version</span><br>
