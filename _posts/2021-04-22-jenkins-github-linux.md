@@ -432,7 +432,7 @@ exit 0
       <ul>
         <li>부팅시 수행하고 싶은 명령의 모음이다.</li>
         <li>링크파일들로 /etc/rc.d/init.d/디렉토리파일과 링크임.</li>
-        <li>디렉토리 마지막에 <strong>/etc/rc.d/rc.local</strong> 파일이 실행되는 링크가 있음.</li>
+        <li>모든 런레벨은 디렉토리 마지막에 <strong>/etc/rc.d/rc.local</strong> 파일이 실행되는 링크(/etc/rc.local)가 있음.</li>
         <li>rc.sysinit 에 의해 호출된다.</li>
       </ul>
     </li>
