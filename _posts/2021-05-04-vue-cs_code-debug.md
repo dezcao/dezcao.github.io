@@ -1,5 +1,5 @@
 ---
-title: Vue 프로젝트를 VS Code에서 디버그 세팅하기
+title: Vue 프로젝트를 VS Code 디버거 세팅하기
 tags:
   - Debug
   - VS Code
