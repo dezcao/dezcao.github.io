@@ -30,7 +30,7 @@ Vue개발에 VS 코드의 디버그 모드를 사용하기위한 설정을 해�
 </div>
 
 <div class="card mb-3">
-    <img class="card-img-top" src="./theme/img/2021-05-04/vs-code-debug-chrome-init.PNG"/>
+    <img class="card-img-top" src="https://dezcao.github.io/theme/img/2021-05-04/vs-code-debug-chrome-init.PNG"/>
     <div class="card-body bg-light">
         <div class="card-text">
             처음 생성되면 이렇게 만들어 진다.
