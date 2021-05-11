@@ -1,5 +1,5 @@
 ---
-title: module.exports(VS exports) VS export default
+title: module.exports(exports) and require(), export and import
 tags:
   - module
   - export
