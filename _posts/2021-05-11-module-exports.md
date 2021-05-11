@@ -8,11 +8,8 @@ tags:
   - require
 ---
 
-Javascript Module을 사용하는 방법들간의 차이점.
-
+Javascript Module을 사용하는 방법들간의 차이점.<br>
 [Import/Export Vs Require/Module.exports](https://arunrajeevan.medium.com/import-export-vs-require-module-exports-572f63516745)
-
-
 
 <!--more-->
 ### Module
@@ -45,7 +42,7 @@ UMD는 이 둘을 통합하려는 노력이라고 합니다.<br>
   [들국화-그것만이 내세상](https://www.youtube.com/watch?v=Aomt_cCNXO0)<br>
 </div>
 
-### require and module.exports,  (Node.js)
+### module.exports and require (Node.js)
 [How to Export and Require Modules in NodeJS](https://www.youtube.com/watch?v=pP4kjXykbio)<br>
 글로벌 객체에 Key, Value로 바인딩 된다.<br>
 모든 모듈은 캐시될 것입니다. 이미 읽었다면 매번 파일을 읽지는 않는다는 뜻입니다.<br>
@@ -95,7 +92,7 @@ exports = function Heya() {
 위에서 exports는 exports.module을 참조하고 있다가, 사용자의 function을 참조하도록 만들었습니다.<br>
 이후 require()를 사용하면, 그것은 exports.modele 객체를 탐색할 것이고 Heya을 찾지 못할 것입니다.
 
-### import and export vs export default (ES6)
+### export, export default and import (ES6)
 [MDN Web Docs export](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/export)<br>
 [Differences with Default and Named Exports - ES6 JavaScript](https://www.youtube.com/watch?v=RMl-ystfzoY)<br>
 <p>
