@@ -1,9 +1,11 @@
 ---
 title: module.exports(VS exports) VS export default
 tags:
-  - Debug
-  - VS Code
-  - Vue.js
+  - module
+  - export
+  - import
+  - module.exports
+  - require
 ---
 
 Javascript Module을 사용하는 방법들간의 차이점.
