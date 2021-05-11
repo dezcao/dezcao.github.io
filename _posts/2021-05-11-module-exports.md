@@ -23,24 +23,6 @@ CommonJS는 서버사이드에서 많이 쓰이고, 아래 exports, require 를 
 AMD는 브라우저에서도 비동기 모듈을 사용하는 표준을 만들려 했습니다.<br>
 AMD의 경우 유명한 것이 RequireJS인데, define(), require() 형태로 사용됩니다. <br>
 UMD는 이 둘을 통합하려는 노력이라고 합니다.<br>
-<br>
-
-<div class="alert alert-secondary" role="alert">
-  RequireJS에 대한 여담 입니다만, <br>
-  저는 과거 SI회사가 웹페이지를 쉽게 추가해준다는 미명하에, Grid라는 오픈소스를 래핑하여 파는걸 본적이 있습니다.<br>
-  그때, 스크립트 마다 Grid를 불러오기 위해 붙어있었습니다.(AMD는 잘못이 없습니다.)<br>
-  그리드를 사용하면 하루에 화면 서너개도 금방찍어 낸다고 눈에 힘주던 선임도, 그 편리함에 감탄하는 입사 동기도 있었습니다.<br>
-  하지만, 당시 부트스트랩만 사용해도 그 이상의 생산성, 재사용성, 심미성, 용이한 유지보수, 보편성<br>
-  게다가 무료인데 어째서 그걸 쓰는지가 의아했습니다.<br>
-  <br>
-  그 후 저는, 다른 SI에서 또다른 그리드를 만났습니다.<br>
-  발주사가 웹 반응성도 개나줘버린 이것을 몇 천만원을 들여서 계약했다는 것을 듣고 경악 했습니다.<br>
-  제가 거의 울것같자, 옆에 계시던 선임이 가만히 말해 주었습니다.<br>
-  그리드를 도입하는데 힘을 써준 발주사의 어떤분께는 감사의 표시가 있다는 것이지요.<br>
-  음... 그래, 아마 난~ 세상을 모르나봐~ 캬하 노래가 땡깁니다.<br>
-
-  [들국화-그것만이 내세상](https://www.youtube.com/watch?v=Aomt_cCNXO0)<br>
-</div>
 
 ### module.exports and require (Node.js)
 [How to Export and Require Modules in NodeJS](https://www.youtube.com/watch?v=pP4kjXykbio)<br>
