@@ -19,13 +19,13 @@ Javascript Module을 사용하는 방법들간의 차이점.<br>
 [JavaScript 표준을 위한 움직임: CommonJS와 AMD](https://d2.naver.com/helloworld/12864)<br>
 위의 링크는, 별 내용 아닌데 좀 깁니다.<br>
 요약 하자면, 비동기 처리에 대한 표준을 정할때 의견대립으로 갈라졌으며,<br>
-CommonJS는 서버사이드에서 많이 쓰이고, 아래에서 언급될 Node.js가 사용하는 exports, require 를 보면 됩니다.<br>
+CommonJS는 서버사이드에서 많이 쓰이고, 아래 exports, require 를 보면 됩니다.<br>
 AMD는 브라우저에서도 비동기 모듈을 사용하는 표준을 만들려 했습니다.<br>
 AMD의 경우 유명한 것이 RequireJS인데, define(), require() 형태로 사용됩니다. <br>
 UMD는 이 둘을 통합하려는 노력이라고 합니다.<br>
 <br>
 
-<div class="alert" role="alert">
+<div class="alert alert-secondary" role="alert">
   RequireJS에 대한 여담 입니다만, <br>
   저는 과거 SI회사가 웹페이지를 쉽게 추가해준다는 미명하에, Grid라는 오픈소스를 래핑하여 파는걸 본적이 있습니다.<br>
   그때, 스크립트 마다 Grid를 불러오기 위해 붙어있었습니다.(AMD는 잘못이 없습니다.)<br>
