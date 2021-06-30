@@ -1,6 +1,6 @@
 # Friday Theme
 ```
-jaepil test5
+jaepil test6
 ```
 ## A Bootstrap 4 portfolio and blog theme for Jekyll
 
