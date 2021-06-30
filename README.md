@@ -1,6 +1,6 @@
 # Friday Theme
 ```
-req pull dev2
+req pull dev4
 ```
 ## A Bootstrap 4 portfolio and blog theme for Jekyll
 
