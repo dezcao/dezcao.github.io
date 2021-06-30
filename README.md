@@ -1,6 +1,6 @@
 # Friday Theme
 ```
-merge petme
+change dev
 ```
 ## A Bootstrap 4 portfolio and blog theme for Jekyll
 
