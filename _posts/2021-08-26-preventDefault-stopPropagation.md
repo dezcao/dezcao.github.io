@@ -4,10 +4,12 @@ tags:
   - preventDefault
   - stopPropagation
 ---
-
-### preventDefault, stopPropagation 차이
+preventDefault, stopPropagation 둘의 차이<br>
 [MDN Web Docs, preventDefault](https://developer.mozilla.org/ko/docs/Web/API/Event/preventDefault)<br>
 [MDN Web Docs, stopPropagation](https://developer.mozilla.org/ko/docs/Web/API/Event/stopPropagation)<br>
+
+<!--more-->
+### preventDefault, stopPropagation, bubbling, capturing
 <p>
   <h4>
     event.preventDefault();
