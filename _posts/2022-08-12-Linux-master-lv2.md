@@ -36,8 +36,8 @@ tags:
 </p>
 
 
-<a href="#" class="float">
-  <i class="fa fa-plus my-float" onclick="myFunction()"></i>
+<a href="javascript:" class="float" onclick="myFunction()">
+  <i class="fa fa-plus my-float"></i>
 </a>
 
 
