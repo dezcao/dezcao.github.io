@@ -66,6 +66,8 @@ h2[id]::before {
     }
 }
 
+
+// 리눅스마스터 공부용 페이지용 -s
 .float{
 	position:fixed;
 	width:60px;
@@ -81,4 +83,10 @@ h2[id]::before {
 
 .my-float{
 	margin-top:22px;
+    line-height: 60px;
 }
+
+.burrow {
+    visibility: hidden;
+}
+// 리눅스마스터 공부용 페이지용 -e

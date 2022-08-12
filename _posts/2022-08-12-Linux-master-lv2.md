@@ -18,7 +18,7 @@ tags:
 <p>
   아다다다닥 
   <span style="border: 1px solid silver; padding: 0px 4px 0px 4px; background-color: yellow">
-    <span :class="{on:displayNone}" style="font-weight: bold;" >나 안보여</span>
+    <span class="hidra" style="font-weight: bold;" >나 안보여</span>
   </span>
   애뽈로라삐
 </p>
@@ -36,8 +36,8 @@ tags:
 </p>
 
 
-<a href="javascript:" class="float" onclick="myFunction()">
-  <i class="fa fa-plus my-float"></i>
+<a href="javascript:" class="float" onclick="linuxMasterFn()">
+  <i class="fa fa-plus my-float">답</i>
 </a>
 
 
