@@ -18,7 +18,7 @@ tags:
 <p>
   아다다다닥 
   <span style="border: 1px solid silver; padding: 0px 4px 0px 4px; background-color: yellow">
-    <span class="hidra" style="font-weight: bold;" >나 안보여</span>
+    <span class="hidra burrow" style="font-weight: bold;" >나 안보여</span>
   </span>
   애뽈로라삐
 </p>
