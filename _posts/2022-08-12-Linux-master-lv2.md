@@ -47,7 +47,7 @@ tags:
         <th colspan="3">기타 사용자 권한</th>
       </tr>
       <tr>
-        <th>기호모드</th>
+        <th>기호</th>
         <td>r</td>
         <td>w</td>
         <td>x</td>
@@ -59,7 +59,7 @@ tags:
         <td>x</td>
       </tr>
       <tr>
-        <th rowspan="2">8진수 숫자 모드</th>
+        <th rowspan="2">8진수</th>
         <td>4</td>
         <td>2</td>
         <td>1</td>
@@ -170,10 +170,9 @@ tags:
 </div>
 <div class="card">
   <div class="card-body">
-    <span>사용자 jeff 의 디스크 용량을 Soft 20MB, Hard 30Mb로 설정하라.
-      <span class="creep">
-        <span class="hidra burrow">setquota -u jeff 20M 30M 0 0 /home</span>
-      </span>
+    <span>사용자 jeff 의 디스크 용량을 Soft 20MB, Hard 30Mb로 설정하라.</span><br>
+    <span class="creep">
+      <span class="hidra burrow">setquota -u jeff 20M 30M 0 0 /home</span>
     </span>
   </div>
 </div>
