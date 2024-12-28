@@ -1,21 +1,16 @@
-# Workflow for deploying static content to GitHub Pages
 name: Deploy static content to Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
+    branches: ["main"] # main 브랜치로 푸시할 때 실행
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -30,27 +25,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16 # Use the Node.js version required by your project
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build with Next.js
-        run: npm run build
-
-      - name: Export static site with Next.js
-        run: npm run export
-
-      - name: Add .nojekyll file
-        run: touch out/.nojekyll
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out # Upload the built static files
+          path: ./out # 로컬에서 생성된 out 폴더를 업로드
 
       - name: Deploy to GitHub Pages
         id: deployment
